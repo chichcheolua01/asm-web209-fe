@@ -89,16 +89,6 @@ const UserSideMenu = (props: Props) => {
               </div>
             </a>
           </li>
-          <li className="py-2">
-            <a href="#" className="text-white block pl-4">
-              <div className="flex space-x-[10px] items-center text-[#1c1d1d]">
-                <div>
-                  <SiAsus size={40} />
-                </div>
-                <p className="text-[14px] ">Asus</p>
-              </div>
-            </a>
-          </li>
         </ul>
       </div>
     </div>
