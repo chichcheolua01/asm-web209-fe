@@ -19,8 +19,8 @@ const UserHeader = (props: Props) => {
   return (
     <div className="">
       <header>
-        <div className="bg-red-500 text-white">
-          <div className="mx-[200px] container py-[10px] flex justify-between">
+        <div className="bg-red-500 text-white flex w-full justify-center">
+          <div className="w-[80%] py-[10px] flex justify-between">
             <div>
               <p className="font-thin">
                 ORDER ONLINE OR CALL US (+1800) 000 8808
@@ -48,51 +48,53 @@ const UserHeader = (props: Props) => {
             </div>
           </div>
         </div>
-        <div className="mx-[200px] container flex justify-between py-[30px]">
-          <div>
-            <img
-              src="https://digital-world-2.myshopify.com/cdn/shop/files/logo_digital_new_250x.png?v=1613166683"
-              alt=""
-            />
-          </div>
-          <div className="flex">
-            <div className="flex items-center border border-y-0 border-l-0 border-r-1 px-[15px]">
-              <div>
-                <div className="flex items-center space-x-[5px]">
-                  <p className="text-red-500">
-                    <BsFillTelephoneFill />
-                  </p>
-                  <p className="">(+1800) 000 8808</p>
-                </div>
+        <div className="flex w-full justify-center">
+          <div className="w-[80%] flex justify-between py-[30px]">
+            <div>
+              <img
+                src="https://digital-world-2.myshopify.com/cdn/shop/files/logo_digital_new_250x.png?v=1613166683"
+                alt=""
+              />
+            </div>
+            <div className="flex">
+              <div className="flex items-center border border-y-0 border-l-0 border-r-1 px-[15px]">
                 <div>
-                  <p className="font-thin">Mon-Sat 9:00AM - 8:00PM</p>
+                  <div className="flex items-center space-x-[5px]">
+                    <p className="text-red-500">
+                      <BsFillTelephoneFill />
+                    </p>
+                    <p className="">(+1800) 000 8808</p>
+                  </div>
+                  <div>
+                    <p className="font-thin">Mon-Sat 9:00AM - 8:00PM</p>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="flex items-center border border-y-0 border-l-0 border-r-1 px-[15px]">
-              <div>
-                <div className="flex items-center space-x-[5px]">
-                  <p className="text-red-500">
-                    <BiLogoGmail />
-                  </p>
-                  <p className="">SUPPORT@TADATHEMES.COM</p>
-                </div>
+              <div className="flex items-center border border-y-0 border-l-0 border-r-1 px-[15px]">
                 <div>
-                  <p className="font-thin">Online Support 24/7</p>
+                  <div className="flex items-center space-x-[5px]">
+                    <p className="text-red-500">
+                      <BiLogoGmail />
+                    </p>
+                    <p className="">SUPPORT@TADATHEMES.COM</p>
+                  </div>
+                  <div>
+                    <p className="font-thin">Online Support 24/7</p>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="flex items-center border border-y-0 border-l-0 border-r-1 px-[15px]">
-              <div className="text-red-500">
-                <BsHeart />
-              </div>
-            </div>
-            <div className="flex items-center border border-y-0 border-l-0 border-r-1 px-[15px]">
-              <div className="flex items-center space-x-[5px]">
+              <div className="flex items-center border border-y-0 border-l-0 border-r-1 px-[15px]">
                 <div className="text-red-500">
-                  <BsFillHandbagFill />
+                  <BsHeart />
                 </div>
-                <p>0 item</p>
+              </div>
+              <div className="flex items-center border border-y-0 border-l-0 border-r-1 px-[15px]">
+                <div className="flex items-center space-x-[5px]">
+                  <div className="text-red-500">
+                    <BsFillHandbagFill />
+                  </div>
+                  <p>0 item</p>
+                </div>
               </div>
             </div>
           </div>
