@@ -4,8 +4,8 @@ type Props = {};
 
 const UserMenu = (props: Props) => {
   return (
-    <div>
-      <div className="border border-x-0 container mx-[200px] py-[10px] flex justify-between">
+    <div className="w-full flex justify-center">
+      <div className="border border-x-0 py-[10px] w-[80%] flex justify-between">
         <div className="flex items-center">
           <a
             href="#"
