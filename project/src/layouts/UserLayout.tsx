@@ -8,7 +8,7 @@ type Props = {};
 
 const UserLayout = (props: Props) => {
   return (
-    <div>
+    <div className="font-Poppins">
       <UserHeader />
       <UserMenu />
       <Outlet />
