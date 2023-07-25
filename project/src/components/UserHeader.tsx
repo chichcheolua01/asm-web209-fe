@@ -61,7 +61,7 @@ const UserHeader = (props: Props) => {
               <div className="flex items-center border border-y-0 border-l-0 border-r-1 px-[15px]">
                 <div>
                   <div className="flex items-center space-x-[5px]">
-                    <p className="text-red-500">
+                    <p className="text-[#EE3131]">
                       <BsFillTelephoneFill />
                     </p>
                     <p className="">(+1800) 000 8808</p>
@@ -74,7 +74,7 @@ const UserHeader = (props: Props) => {
               <div className="flex items-center border border-y-0 border-l-0 border-r-1 px-[15px]">
                 <div>
                   <div className="flex items-center space-x-[5px]">
-                    <p className="text-red-500">
+                    <p className="text-[#EE3131]">
                       <GrMail />
                     </p>
                     <p className="">SUPPORT@TADATHEMES.COM</p>
@@ -85,13 +85,13 @@ const UserHeader = (props: Props) => {
                 </div>
               </div>
               <div className="flex items-center border border-y-0 border-l-0 border-r-1 px-[15px]">
-                <div className="text-red-500">
+                <div className="text-[#EE3131]">
                   <BsHeart />
                 </div>
               </div>
               <div className="flex items-center border border-y-0 border-l-0 border-r-1 px-[15px]">
                 <div className="flex items-center space-x-[5px]">
-                  <div className="text-red-500">
+                  <div className="text-[#EE3131]">
                     <BsFillHandbagFill />
                   </div>
                   <p>0 item</p>
