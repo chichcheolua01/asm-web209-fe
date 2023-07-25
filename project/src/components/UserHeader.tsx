@@ -12,6 +12,7 @@ import {
   BsHeart,
   BsFillHandbagFill,
 } from "react-icons/bs";
+import { GrMail } from "react-icons/gr";
 
 type Props = {};
 
@@ -19,7 +20,7 @@ const UserHeader = (props: Props) => {
   return (
     <div className="">
       <header>
-        <div className="bg-red-500 text-white flex w-full justify-center">
+        <div className="bg-[#EE3131] text-white flex w-full justify-center">
           <div className="w-[80%] py-[10px] flex justify-between">
             <div>
               <p className="font-thin">
@@ -74,7 +75,7 @@ const UserHeader = (props: Props) => {
                 <div>
                   <div className="flex items-center space-x-[5px]">
                     <p className="text-red-500">
-                      <BiLogoGmail />
+                      <GrMail />
                     </p>
                     <p className="">SUPPORT@TADATHEMES.COM</p>
                   </div>
