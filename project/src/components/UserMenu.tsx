@@ -9,37 +9,37 @@ const UserMenu = (props: Props) => {
         <div className="flex items-center">
           <a
             href="#"
-            className="px-3 py-2 text-sm font-medium  hover:bg-gray-700"
+            className="px-3 py-2 text-sm font-medium"
           >
             HOME
           </a>
           <a
             href="#"
-            className="px-3 py-2 text-sm font-medium  hover:bg-gray-700"
+            className="px-3 py-2 text-sm font-medium "
           >
             MEGA MENU
           </a>
           <a
             href="#"
-            className="px-3 py-2 text-sm font-medium  hover:bg-gray-700"
+            className="px-3 py-2 text-sm font-medium"
           >
             COLLECTION LAYOUT
           </a>
           <a
             href="#"
-            className="px-3 py-2 text-sm font-medium  hover:bg-gray-700"
+            className="px-3 py-2 text-sm font-medium"
           >
             PAGES
           </a>
           <a
             href="#"
-            className="px-3 py-2 text-sm font-medium  hover:bg-gray-700"
+            className="px-3 py-2 text-sm font-medium"
           >
             BLOGS
           </a>
           <a
             href="#"
-            className="px-3 py-2 text-sm font-medium  hover:bg-gray-700"
+            className="px-3 py-2 text-sm font-medium"
           >
             CONTACT US
           </a>
