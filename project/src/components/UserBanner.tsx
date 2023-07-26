@@ -15,7 +15,6 @@ const UserBanner = (props: Props) => {
     autoplay: true,
     autoplaySpeed: 3000,
   };
-
   return (
     <Slider {...settings}>
       <div className="w-full h-full">

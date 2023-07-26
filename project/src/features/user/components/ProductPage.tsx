@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useGetProductsQuery } from "../product.services";
 
 type Props = {};
 
@@ -28,7 +29,6 @@ const ProductPage = (props: Props) => {
                   Danh mục
                 </span>
               </div>
-
               <div className="banner-aside-list border border-solid border-[#ccc]">
                 <div className="banner-aside-item flex items-center py-2 px-[20px]">
                   <Link to={`/products/category/`} className="pl-[9px]">
@@ -56,7 +56,6 @@ const ProductPage = (props: Props) => {
                   <div className="text-[#505050] text-[17px] font-semibold mb-[10px]">
                     Sắp xếp theo
                   </div>
-
                   <select
                     name=""
                     id=""
