@@ -1,7 +1,8 @@
 import React from "react";
-import { IProduct } from "../interfaces/product.interface";
+import { IProduct } from "../../interfaces/product.interface";
 import { AiFillNotification } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { UserItem } from "..";
 
 type Props = {
   item: IProduct | undefined;
@@ -16,7 +17,7 @@ const UserDailyDeal = ({ item }: Props) => {
   }
   return (
     <div>
-      <div className="border border-1 border-gray-200 p-[20px]">
+      <div className="p-[20px]">
         <div className="flex flex-col space-y-[20px]">
           <div className="flex items-center justify-between pr-[50px]">
             <div className="text-[#EE3131]">
@@ -26,15 +27,7 @@ const UserDailyDeal = ({ item }: Props) => {
               DAILY DEALS
             </h2>
           </div>
-          <div className="flex flex-col items-center">
-            <div className="w-full flex justify-center">
-              <img src={item?.images[0]} alt="" />
-            </div>
-            <p className="text-[16px] text-[#2B3743]">{item?.name}</p>
-            <p className="text-[16px] text-[#2B3743]">
-              {formatCurrency(item?.price)} VND
-            </p>
-          </div>
+          <UserItem item={item} index={0}/>
           <div className="grid grid-cols-3 gap-x-[3px] py-[10px] px-[5px]">
             <div className="flex flex-col items-center bg-[#F4F4F4] px-[10px] py-[5px] w-full">
               <p className="text-[18px] font-semibold">0</p>

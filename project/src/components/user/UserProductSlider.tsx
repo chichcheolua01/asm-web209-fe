@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import Slider from "react-slick";
-import { RootState } from "../store/store";
-import { IProduct } from "../interfaces/product.interface";
+import { RootState } from "../../store/store";
+import { IProduct } from "../../interfaces/product.interface";
+import { UserItem } from "..";
 
 type Props = {
   type: string;
@@ -18,12 +19,7 @@ const UserProductSlider = ({ type, products }: Props) => {
     productsType = products?.filter((item, index) => index >= 4);
     console.log(productsType);
   }
-  function formatCurrency(amount: number | undefined) {
-    return ((amount as number) / 100).toLocaleString("vi-VN", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
-  }
+  
   const settings = {
     dots: false,
     infinite: true,
@@ -39,15 +35,7 @@ const UserProductSlider = ({ type, products }: Props) => {
       <Slider {...settings}>
         {productsType?.map((item, index) => (
           <a href={`products/id/${item._id}`}>
-            <div key={index} className="p-[15px] focus:outline-none">
-              <img src={item.images[0]} alt={`Image ${index + 1}`} />
-              <p className="text-[#2B3743] text-[16px] font-extralight mb-[5px]">
-                {item.name}
-              </p>
-              <p className="text-[#2B3743] text-[16px] font-extralight">
-                {formatCurrency(item.price)} VND
-              </p>
-            </div>
+            <UserItem item={item} index={index} />
           </a>
         ))}
       </Slider>
