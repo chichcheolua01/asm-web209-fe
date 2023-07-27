@@ -1,12 +1,14 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: ["./src/**/*.{html,js, ts, tsx}"],
+import tailwindcss_forms from "@tailwindcss/forms";
+export default {
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       fontFamily: {
         Poppins: ["Poppins", "sans-serif"],
+        Inter: ["Inter", "sans-serif"],
       },
     },
   },
-  plugins: [],
+  plugins: [tailwindcss_forms],
 };
