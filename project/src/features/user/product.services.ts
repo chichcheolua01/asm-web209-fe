@@ -15,16 +15,16 @@ interface IGetOneApiResponse {
 export const productApi = createApi({
   reducerPath: "productApi",
   tagTypes: ["Products"],
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8080/api" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8888/api" }),
   endpoints: (build) => ({
     getProducts: build.query<IGetAllApiResponse, void>({
       query: () => "products",
       providesTags(result) {
         if (result) {
           const final = [
-            ...result.products.map(({ id }) => ({
+            ...result.products.map(({ _id }) => ({
               type: "Products" as const,
-              id,
+              _id,
             })),
             { type: "Products" as const, id: "LIST" },
           ];
