@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useGetProductsQuery } from "../product.services";
+import UserSideMenu from "../../../components/UserSideMenu";
 
 type Props = {};
 
@@ -20,27 +21,12 @@ const ProductPage = (props: Props) => {
           </div>
         </div>
       </div>
-      <div className="products mb-10">
-        <div className="products-container px-[170px] flex gap-x-[22px]">
-          <div className="products-aside w-[25%] flex-shrink-0">
-            <div className="banner-aside mb-5">
-              <div className="banner-aside-title py-[10px] px-5 bg-digital-400 text-[#505050] text-base">
-                <span className="pl-[14px] uppercase font-semibold">
-                  Danh mục
-                </span>
-              </div>
-              <div className="banner-aside-list border border-solid border-[#ccc]">
-                <div className="banner-aside-item flex items-center py-2 px-[20px]">
-                  <Link to={`/products/category/`} className="pl-[9px]">
-                    Asus
-                  </Link>
-                </div>
-
-                <div className="banner-aside-item flex items-center py-2 px-[20px]">
-                  <Link to={`/products/category/`} className="pl-[9px]">
-                    Asus
-                  </Link>
-                </div>
+      <div className="mb-10">
+        <div className="px-[170px] flex gap-x-[22px]">
+          <div className="w-[25%] flex-shrink-0">
+            <div className="mb-5">
+              <div className="border border-solid border-[#ccc]">
+                <UserSideMenu />
               </div>
             </div>
 

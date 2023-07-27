@@ -15,7 +15,7 @@ interface IGetOneApiResponse {
 export const productApi = createApi({
   reducerPath: "productApi",
   tagTypes: ["Products"],
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8888/api" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8080/api" }),
   endpoints: (build) => ({
     getProducts: build.query<IGetAllApiResponse, void>({
       query: () => "products",
