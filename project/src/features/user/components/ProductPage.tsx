@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useGetProductsQuery } from "../product.services";
-import UserSideMenu from "../../../components/UserSideMenu";
+import UserSideMenu from "../../../components/user/UserSideMenu";
 
 type Props = {};
 

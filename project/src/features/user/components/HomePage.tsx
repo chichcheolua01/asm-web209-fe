@@ -6,8 +6,11 @@ import {
   UserProductTypeBanner,
   UserSideMenu,
 } from "../../../components";
-import UserTypeMenu from "../../../components/UserTypeMenu";
-import UserProductSlider from "../../../components/UserProductSlider";
+import UserTypeMenu from "../../../components/user/UserTypeMenu";
+import UserProductSlider from "../../../components/user/UserProductSlider";
+import UserFeaturedProducts from "../../../components/user/UserFeaturedProducts";
+import UserFeaturedBanner from "../../../components/user/UserFeaturedBanner";
+import UserNewArrival from "../../../components/user/UserNewArrival";
 
 type Props = {};
 
@@ -32,8 +35,8 @@ const HomePage = (props: Props) => {
               <UserBanner />
             </div>
           </div>
-          <div className="grid grid-cols-4 w-full h-full gap-[20px]">
-            <div>
+          <div className="grid grid-cols-4 w-full h-full gap-x-[20px]">
+            <div className="h-[100%] border border-1 border-gray-200">
               <UserDailyDeal item={dailyProduct} />
             </div>
             <div className="col-span-3 w-full">
@@ -51,6 +54,15 @@ const HomePage = (props: Props) => {
                 </div>
               </div>
             </div>
+          </div>
+          <div className="mt-[20px]">
+            <UserFeaturedProducts products={products} />
+          </div>
+          <div>
+            <UserFeaturedBanner />
+          </div>
+          <div>
+            <UserNewArrival type={productType} products={products} />
           </div>
         </div>
       </div>
