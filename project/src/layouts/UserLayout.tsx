@@ -1,8 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import UserHeader from "../components/UserHeader";
-import UserFooter from "../components/UserFooter";
-import UserMenu from "../components/UserMenu";
+import { UserFooter, UserHeader, UserMenu } from "../components";
 
 type Props = {};
 
