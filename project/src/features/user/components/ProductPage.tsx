@@ -1,9 +1,15 @@
 import React, { useState } from "react";
-import { NavLink, useNavigate, useSearchParams } from "react-router-dom";
+import {
+  NavLink,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import UserSideMenu from "../../../components/user/UserSideMenu";
 import icons from "../../../utils/icons";
 import ProductItem from "./ProductItem";
 import { useGetProducts2Query } from "../product.services";
+import { IProduct } from "../../../interfaces/product.interface";
 
 const { BiChevronRight, BsArrowRight, AiOutlineUnorderedList } = icons;
 
@@ -15,6 +21,8 @@ const ProductPage = (props: Props) => {
   const [filterPriceLte, setFilterPriceLte] = useState<string>("");
 
   const [searchParams] = useSearchParams();
+  const { category } = useParams();
+
   const name = searchParams.get("name")!;
   const sort = searchParams.get("sort")!;
   const price_filter_gte = searchParams.get("price_filter_gte")!;
@@ -25,6 +33,7 @@ const ProductPage = (props: Props) => {
     sort: seletedSort,
     filterPriceGte: filterPriceGte,
     filterPriceLte: filterPriceLte,
+    category: category,
   });
 
   const navigate = useNavigate();
@@ -32,7 +41,7 @@ const ProductPage = (props: Props) => {
   const handleChangeSort = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
     setSeletedSort(value);
-    const sortUrl = `/products/?sort=${value}${
+    const sortUrl = `?sort=${value}${
       name || price_filter_gte || price_filter_lte
         ? `&name=${name === null ? "" : name}&price_filter_gte=${
             price_filter_gte === null ? "" : price_filter_gte
@@ -51,7 +60,7 @@ const ProductPage = (props: Props) => {
     const value = e.target.value;
     setFilterPriceGte(value);
 
-    const filterPriceGteUrl = `/products/?price_filter_gte=${value}${
+    const filterPriceGteUrl = `?price_filter_gte=${value}${
       name || sort || price_filter_lte
         ? `&name=${name === null ? "" : name}&sort=${
             sort === null ? "" : sort
@@ -68,7 +77,7 @@ const ProductPage = (props: Props) => {
   ) => {
     const value = e.target.value;
     setFilterPriceLte(value);
-    const filterPriceLteUrl = `/products/?price_filter_lte=${value}${
+    const filterPriceLteUrl = `?price_filter_lte=${value}${
       name || sort || price_filter_gte
         ? `&name=${name === null ? "" : name}&sort=${
             sort === null ? "" : sort
@@ -189,7 +198,7 @@ const ProductPage = (props: Props) => {
 
           <div className="w-[75%] flex-1">
             <div className="flex mx-[-11px] gap-y-5 flex-wrap mb-10">
-              {data?.products.map((product) => (
+              {data?.products.map((product: IProduct) => (
                 <ProductItem key={product._id} product={product} />
               ))}
             </div>

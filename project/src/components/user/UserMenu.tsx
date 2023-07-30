@@ -13,7 +13,7 @@ const UserMenu = (props: Props) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const inputValue = (e.target as HTMLFormElement).searchInput.value;
-    const searchUrl = `/products/?name=${inputValue}${
+    const searchUrl = `?name=${inputValue}${
       sort || price_filter_gte || price_filter_lte
         ? `&sort=${sort === null ? "" : sort}&price_filter_gte=${
             price_filter_gte === null ? "" : price_filter_gte
