@@ -25,14 +25,15 @@ function App() {
   return (
     <div className="App">
       <Routes>
+        <Route path="signin" element={<SigninPage />} />
+        <Route path="signup" element={<SignupPage />} />
         <Route path="" element={<UserLayout />}>
           <Route index element={<HomePage />} />
           <Route path="products">
             <Route index element={<ProductPage />} />
             <Route path=":id" element={<ProductDetailPage />} />
           </Route>
-          <Route path="signin" element={<SigninPage />} />
-          <Route path="signup" element={<SignupPage />} />
+
         </Route>
 
         <Route path="admin" element={<AdminLayout />}>
