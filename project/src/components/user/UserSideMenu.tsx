@@ -3,10 +3,15 @@ import { AiOutlineUnorderedList } from "react-icons/ai";
 import { SiAsus, SiDell } from "react-icons/si";
 import { IoLogoApple } from "react-icons/io";
 import { RiAliensFill } from "react-icons/ri";
+import { useGetCategoriesQuery } from "../../features/user/category.services";
+import { ICategory } from "../../interfaces/category.interface";
+import { Link } from "react-router-dom";
 
 type Props = {};
 
 const UserSideMenu = (props: Props) => {
+  const { data } = useGetCategoriesQuery();
+
   return (
     <div className="border border-1 border-gray-200">
       <div className="px-[20px] py-[10px] bg-[#EE3131]">
@@ -19,7 +24,23 @@ const UserSideMenu = (props: Props) => {
       </div>
       <div className="text-black">
         <ul className="">
-          <li className="py-2">
+          {data?.categories.map((category: ICategory) => (
+            <li className="py-2" key={category._id}>
+              <Link
+                to={`/category/${category.slug}`}
+                className="text-white block pl-4"
+              >
+                <div className="flex space-x-[10px] items-center text-[#1c1d1d]">
+                  <div>
+                    <SiAsus size={35} />
+                  </div>
+                  <p className="text-[14px] ">{category.name}</p>
+                </div>
+              </Link>
+            </li>
+          ))}
+
+          {/* <li className="py-2">
             <a href="#" className="text-white block pl-4">
               <div className="flex space-x-[10px] items-center text-[#1c1d1d]">
                 <div>
@@ -88,7 +109,7 @@ const UserSideMenu = (props: Props) => {
                 <p className="text-[14px] ">Asus</p>
               </div>
             </a>
-          </li>
+          </li> */}
         </ul>
       </div>
     </div>
