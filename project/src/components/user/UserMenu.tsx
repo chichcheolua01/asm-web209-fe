@@ -1,9 +1,31 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 
 type Props = {};
 
 const UserMenu = (props: Props) => {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const sort = searchParams.get("sort")!;
+  const price_filter_gte = searchParams.get("price_filter_gte")!;
+  const price_filter_lte = searchParams.get("price_filter_gte")!;
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const inputValue = (e.target as HTMLFormElement).searchInput.value;
+    const searchUrl = `/products/?name=${inputValue}${
+      sort || price_filter_gte || price_filter_lte
+        ? `&sort=${sort === null ? "" : sort}&price_filter_gte=${
+            price_filter_gte === null ? "" : price_filter_gte
+          }&price_filter_lte=${
+            price_filter_lte === null ? "" : price_filter_lte
+          }`
+        : ""
+    }`;
+
+    navigate(searchUrl);
+  };
+
   return (
     <div className="w-full flex justify-center">
       <div className="border border-x-0 py-[10px] w-[80%] flex justify-between">
@@ -25,11 +47,14 @@ const UserMenu = (props: Props) => {
           </a>
         </div>
         <div className="flex items-center pr-[50px]">
-          <input
-            type="text"
-            className="font-thin border-none focus:ring-0"
-            placeholder="Search something"
-          />
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              className="font-thin border-none focus:ring-0"
+              placeholder="Search something"
+              name="searchInput"
+            />
+          </form>
         </div>
       </div>
     </div>
