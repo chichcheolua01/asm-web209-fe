@@ -1,13 +1,21 @@
 import React, { useState } from "react";
 import icons from "../../../utils/icons";
 import { Link } from "react-router-dom";
+import { IProduct } from "../../../interfaces/product.interface";
 
 const { AiTwotoneStar, LiaBarsSolid, FaEye, BsFillHeartFill } = icons;
 
+interface ProductItemProps {
+  product: IProduct;
+}
+
 type Props = {};
 
-const ProductItem = (props: Props) => {
+const ProductItem = (props: ProductItemProps) => {
   const [isHover, setIsHover] = useState<boolean>(false);
+  const { product } = props;
+
+  const formattedProductDesc = product.description.replace(/\n/g, "<br/>");
 
   return (
     <div
@@ -16,15 +24,12 @@ const ProductItem = (props: Props) => {
       onMouseLeave={() => setIsHover(false)}
     >
       <div className="mb-5 w-full h-full">
-        <img
-          src="https://digital-world-2.myshopify.com/cdn/shop/products/z1_2_8ad649f4-de63-464c-a7d1-7573c1b53a2d_500x.jpg?v=1491404804"
-          alt=""
-        />
+        <img src={product.thumb} alt="" />
       </div>
 
       <div>
         <div className="mb-[6px] text-base text-main-500">
-          <Link to={"/products"}>Apple Watch Edition Series 2</Link>
+          <Link to={"/products"}>{product.name}</Link>
         </div>
 
         <div className="flex items-center text-[#f1b400] gap-x-[2px] mb-[10px]">
@@ -35,7 +40,7 @@ const ProductItem = (props: Props) => {
           <AiTwotoneStar size={14} />
         </div>
 
-        <div className="text-base">6.373.954,46 VND</div>
+        <div className="text-base">{product.price.toLocaleString()} VND</div>
       </div>
 
       <div
@@ -44,31 +49,20 @@ const ProductItem = (props: Props) => {
         }`}
       >
         <div className="w-full flex items-center justify-between pl-4 pr-1 pb-[10px] mb-[10px] border-b border-[#ebebeb]">
-          <div className="mb-[6px] text-base text-[#2b3743] leading-[18px]">
-            <Link to={"/products"}>Apple Watch Edition Series 2</Link>
+          <div className="mb-[6px] text-base text-[#2b3743] leading-[18px] hover:text-main-200">
+            <Link to={"/products"}>{product.name}</Link>
           </div>
 
           <div className="text-base text-right leading-[18px]">
-            6.373.954,46 VND
+            {product.price.toLocaleString()} VND
           </div>
         </div>
 
         <div className="py-[10px] px-5 w-full">
-          <div className="text-[13px] leading-[18px] text-main-500 mb-[15px]">
-            Technology: No cellular connectivity
-            <br />
-            Dimensions: 42.6 x 36.5 x 11.4 mm
-            <br />
-            Weight: 45.6 g
-            <br />
-            Display: AMOLED 1.6 inches
-            <br />
-            Resolution: 390 x 312
-            <br />
-            OS: watchOS 3.0
-            <br />
-            Chipset: Apple S2
-          </div>
+          <div
+            dangerouslySetInnerHTML={{ __html: formattedProductDesc }}
+            className="text-[13px] leading-[18px] text-main-500 mb-[15px]"
+          ></div>
 
           <div className="flex items-center gap-x-2 ">
             <div className="w-10 h-10 border border-[#c5cfd6] bg-white text-[#2a2a2a] rounded-full flex items-center justify-center cursor-pointer hover:border-transparent hover:bg-[#2a2a2a] hover:text-white transition-all duration-500 ease-out">

@@ -1,14 +1,85 @@
 import React, { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink, useNavigate, useSearchParams } from "react-router-dom";
 import UserSideMenu from "../../../components/user/UserSideMenu";
 import icons from "../../../utils/icons";
 import ProductItem from "./ProductItem";
+import { useGetProducts2Query } from "../product.services";
 
-const { BiChevronRight, GrSort, BsArrowRight, AiOutlineUnorderedList } = icons;
+const { BiChevronRight, BsArrowRight, AiOutlineUnorderedList } = icons;
 
 type Props = {};
 
 const ProductPage = (props: Props) => {
+  const [seletedSort, setSeletedSort] = useState<string>("");
+  const [filterPriceGte, setFilterPriceGte] = useState<string>("");
+  const [filterPriceLte, setFilterPriceLte] = useState<string>("");
+
+  const [searchParams] = useSearchParams();
+  const name = searchParams.get("name")!;
+  const sort = searchParams.get("sort")!;
+  const price_filter_gte = searchParams.get("price_filter_gte")!;
+  const price_filter_lte = searchParams.get("price_filter_lte")!;
+
+  const { data } = useGetProducts2Query({
+    name: name,
+    sort: seletedSort,
+    filterPriceGte: filterPriceGte,
+    filterPriceLte: filterPriceLte,
+  });
+
+  const navigate = useNavigate();
+
+  const handleChangeSort = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
+    setSeletedSort(value);
+    const sortUrl = `/products/?sort=${value}${
+      name || price_filter_gte || price_filter_lte
+        ? `&name=${name === null ? "" : name}&price_filter_gte=${
+            price_filter_gte === null ? "" : price_filter_gte
+          }&price_filter_lte=${
+            price_filter_lte === null ? "" : price_filter_lte
+          }`
+        : ""
+    }`;
+
+    navigate(sortUrl);
+  };
+
+  const handleChangeFilterPriceGte = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const value = e.target.value;
+    setFilterPriceGte(value);
+
+    const filterPriceGteUrl = `/products/?price_filter_gte=${value}${
+      name || sort || price_filter_lte
+        ? `&name=${name === null ? "" : name}&sort=${
+            sort === null ? "" : sort
+          }&price_filter_lte=${
+            price_filter_lte === null ? "" : price_filter_lte
+          }`
+        : ""
+    }`;
+    navigate(filterPriceGteUrl);
+  };
+
+  const handleChangeFilterPriceLte = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const value = e.target.value;
+    setFilterPriceLte(value);
+    const filterPriceLteUrl = `/products/?price_filter_lte=${value}${
+      name || sort || price_filter_gte
+        ? `&name=${name === null ? "" : name}&sort=${
+            sort === null ? "" : sort
+          }&price_filter_gte=${
+            price_filter_lte === null ? "" : price_filter_lte
+          }`
+        : ""
+    }`;
+    navigate(filterPriceLteUrl);
+  };
+
   return (
     <>
       <div className="bg-[#f7f7f7] py-[15px] mb-[35px]">
@@ -50,6 +121,7 @@ const ProductPage = (props: Props) => {
                     name=""
                     id=""
                     className="border border-solid border-[rgba(26,27,24,.75)] pl-[15px] pr-5 w-full text-xs bg-[#f6f6f6] text-[#1c1d1d] py-[10px]"
+                    onChange={handleChangeSort}
                   >
                     <option value="">Sản phẩm nổi bật</option>
                     <option value="">Bán chạy nhất</option>
@@ -83,6 +155,8 @@ const ProductPage = (props: Props) => {
                           placeholder="Từ"
                           className="w-full bg-[#f6f6f6] pl-[10px] border-none"
                           id="gte-input"
+                          value={filterPriceGte}
+                          onChange={handleChangeFilterPriceGte}
                         />
                       </div>
 
@@ -95,6 +169,8 @@ const ProductPage = (props: Props) => {
                           placeholder="Đến"
                           className="w-full bg-[#f6f6f6] pl-[10px] border-none"
                           id="lte-input"
+                          value={filterPriceLte}
+                          onChange={handleChangeFilterPriceLte}
                         />
                       </div>
                     </form>
@@ -113,36 +189,9 @@ const ProductPage = (props: Props) => {
 
           <div className="w-[75%] flex-1">
             <div className="flex mx-[-11px] gap-y-5 flex-wrap mb-10">
-              {/* <div className="border border-solid border-[#ccc] px-[15px] mb-10 pb-6 pt-[15px]">
-                <div className="w-[250px] h-[250px] mb-5">
-                  <Link to={`/products/`}>
-                    <img
-                      src="https://cdn.shopify.com/s/files/1/1903/4853/products/z1_877559ca-7315-44b0-9f7f-f393bd0808bd_1024x1024.jpg?v=1491404790"
-                      alt=""
-                      className="w-full h-full object-cover"
-                    />
-                  </Link>
-                </div>
-
-                <div>
-                  <h3 className="text-main-500 text-base mb-[6px]">
-                    <Link to={`/products/`}>LENOVO IDEAPAD 110</Link>
-                  </h3>
-                  <div className="text-[#f1b400] text-xs flex gap-x-[2px] mb-[10px]">
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                  </div>
-                  <span className="text-base">1760637873 VND</span>
-                </div>
-              </div> */}
-
-              <ProductItem />
-              <ProductItem />
-              <ProductItem />
-              <ProductItem />
+              {data?.products.map((product) => (
+                <ProductItem key={product._id} product={product} />
+              ))}
             </div>
 
             <div className="flex items-center justify-center gap-x-4 font-medium text-base uppercase">
