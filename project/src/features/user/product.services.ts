@@ -41,36 +41,45 @@ export const productApi = createApi({
         filterPriceGte?: string;
         filterPriceLte?: string;
         category?: string;
+        limit?: string | number;
+        page?: string;
       }
     >({
-      query: ({ name, sort, filterPriceGte, filterPriceLte, category }) => {
+      query: ({
+        name,
+        sort,
+        filterPriceGte,
+        filterPriceLte,
+        category,
+        limit,
+        page,
+      }) => {
         let queryString = "products";
         const params = [];
-
         if (name) {
           params.push(`name=${encodeURIComponent(name)}`);
         }
-
         if (sort) {
           params.push(`sort=${encodeURIComponent(sort)}`);
         }
-
         if (filterPriceGte) {
           params.push(`price[gte]=${encodeURIComponent(filterPriceGte)}`);
         }
-
         if (filterPriceLte) {
           params.push(`price[lte]=${encodeURIComponent(filterPriceLte)}`);
         }
-
         if (category) {
           params.push(`category=${encodeURIComponent(category)}`);
         }
-
+        if (limit) {
+          params.push(`limit=${encodeURIComponent(limit)}`);
+        }
+        if (page) {
+          params.push(`page=${encodeURIComponent(page)}`);
+        }
         if (params.length > 0) {
           queryString += `?${params.join("&")}`;
         }
-
         return queryString;
       },
       providesTags(result, error, params) {

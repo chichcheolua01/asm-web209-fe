@@ -1,17 +1,13 @@
 import React, { useState } from "react";
-import {
-  NavLink,
-  useNavigate,
-  useParams,
-  useSearchParams,
-} from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import UserSideMenu from "../../../components/user/UserSideMenu";
 import icons from "../../../utils/icons";
 import ProductItem from "./ProductItem";
 import { useGetProducts2Query } from "../product.services";
 import { IProduct } from "../../../interfaces/product.interface";
+import Pagination from "./Pagination";
 
-const { BiChevronRight, BsArrowRight, AiOutlineUnorderedList } = icons;
+const { BiChevronRight, AiOutlineUnorderedList } = icons;
 
 type Props = {};
 
@@ -27,6 +23,7 @@ const ProductPage = (props: Props) => {
   const sort = searchParams.get("sort")!;
   const price_filter_gte = searchParams.get("price_filter_gte")!;
   const price_filter_lte = searchParams.get("price_filter_lte")!;
+  const page = searchParams.get("page")!;
 
   const { data } = useGetProducts2Query({
     name: name,
@@ -34,6 +31,8 @@ const ProductPage = (props: Props) => {
     filterPriceGte: filterPriceGte,
     filterPriceLte: filterPriceLte,
     category: category,
+    page: page,
+    limit: import.meta.env.VITE_APP_LIMIT_PRODUCT_PER_PAGE || 6,
   });
 
   const navigate = useNavigate();
@@ -42,12 +41,12 @@ const ProductPage = (props: Props) => {
     const value = e.target.value;
     setSeletedSort(value);
     const sortUrl = `?sort=${value}${
-      name || price_filter_gte || price_filter_lte
+      name || price_filter_gte || price_filter_lte || page
         ? `&name=${name === null ? "" : name}&price_filter_gte=${
             price_filter_gte === null ? "" : price_filter_gte
           }&price_filter_lte=${
             price_filter_lte === null ? "" : price_filter_lte
-          }`
+          }&page=${page === null ? "" : page}`
         : ""
     }`;
 
@@ -61,12 +60,12 @@ const ProductPage = (props: Props) => {
     setFilterPriceGte(value);
 
     const filterPriceGteUrl = `?price_filter_gte=${value}${
-      name || sort || price_filter_lte
+      name || sort || price_filter_lte || page
         ? `&name=${name === null ? "" : name}&sort=${
             sort === null ? "" : sort
           }&price_filter_lte=${
             price_filter_lte === null ? "" : price_filter_lte
-          }`
+          }&page=${page === null ? "" : page}`
         : ""
     }`;
     navigate(filterPriceGteUrl);
@@ -78,12 +77,12 @@ const ProductPage = (props: Props) => {
     const value = e.target.value;
     setFilterPriceLte(value);
     const filterPriceLteUrl = `?price_filter_lte=${value}${
-      name || sort || price_filter_gte
+      name || sort || price_filter_gte || page
         ? `&name=${name === null ? "" : name}&sort=${
             sort === null ? "" : sort
           }&price_filter_gte=${
-            price_filter_lte === null ? "" : price_filter_lte
-          }`
+            price_filter_gte === null ? "" : price_filter_gte
+          }&page=${page === null ? "" : page}`
         : ""
     }`;
     navigate(filterPriceLteUrl);
@@ -203,40 +202,13 @@ const ProductPage = (props: Props) => {
               ))}
             </div>
 
-            <div className="flex items-center justify-center gap-x-4 font-medium text-base uppercase">
-              <div className="hover:text-[#ee3131] text-black">
-                <NavLink
-                  to="#"
-                  className={({ isActive }) =>
-                    isActive ? "text-[#ee3131]" : "text-black"
-                  }
-                >
-                  1
-                </NavLink>
-              </div>
-
-              <div className="hover:text-[#ee3131] text-black">
-                <NavLink
-                  to="#"
-                  className={({ isActive }) =>
-                    isActive ? "text-[#ee3131]" : "text-black"
-                  }
-                >
-                  2
-                </NavLink>
-              </div>
-
-              <div className="hover:text-[#ee3131] text-black">
-                <NavLink
-                  to="#"
-                  className={({ isActive }) =>
-                    isActive ? "text-[#ee3131]" : "text-black"
-                  }
-                >
-                  <BsArrowRight />
-                </NavLink>
-              </div>
-            </div>
+            <Pagination
+              name={name}
+              sort={sort}
+              price_filter_gte={price_filter_gte}
+              price_filter_lte={price_filter_lte}
+              totalCount={9}
+            />
           </div>
         </div>
       </div>
