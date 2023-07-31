@@ -18,7 +18,6 @@ const Pagination = (props: IPaginationProps) => {
   const { name, sort, price_filter_gte, price_filter_lte, totalCount } = props;
   const navigate = useNavigate();
   const pagination = usePagination(totalCount, 1);
-  console.log(pagination);
 
   const handlePaginationUrl = (value: string | number) => {
     const paginationUrl = `?page=${value}${
