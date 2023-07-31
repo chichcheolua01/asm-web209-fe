@@ -1,11 +1,94 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { useGetProductsQuery } from "../product.services";
+import React, { useState } from "react";
+import {
+  NavLink,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import UserSideMenu from "../../../components/user/UserSideMenu";
+import icons from "../../../utils/icons";
+import ProductItem from "./ProductItem";
+import { useGetProducts2Query } from "../product.services";
+import { IProduct } from "../../../interfaces/product.interface";
+
+const { BiChevronRight, BsArrowRight, AiOutlineUnorderedList } = icons;
 
 type Props = {};
 
 const ProductPage = (props: Props) => {
+  const [seletedSort, setSeletedSort] = useState<string>("");
+  const [filterPriceGte, setFilterPriceGte] = useState<string>("");
+  const [filterPriceLte, setFilterPriceLte] = useState<string>("");
+
+  const [searchParams] = useSearchParams();
+  const { category } = useParams();
+
+  const name = searchParams.get("name")!;
+  const sort = searchParams.get("sort")!;
+  const price_filter_gte = searchParams.get("price_filter_gte")!;
+  const price_filter_lte = searchParams.get("price_filter_lte")!;
+
+  const { data } = useGetProducts2Query({
+    name: name,
+    sort: seletedSort,
+    filterPriceGte: filterPriceGte,
+    filterPriceLte: filterPriceLte,
+    category: category,
+  });
+
+  const navigate = useNavigate();
+
+  const handleChangeSort = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
+    setSeletedSort(value);
+    const sortUrl = `?sort=${value}${
+      name || price_filter_gte || price_filter_lte
+        ? `&name=${name === null ? "" : name}&price_filter_gte=${
+            price_filter_gte === null ? "" : price_filter_gte
+          }&price_filter_lte=${
+            price_filter_lte === null ? "" : price_filter_lte
+          }`
+        : ""
+    }`;
+
+    navigate(sortUrl);
+  };
+
+  const handleChangeFilterPriceGte = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const value = e.target.value;
+    setFilterPriceGte(value);
+
+    const filterPriceGteUrl = `?price_filter_gte=${value}${
+      name || sort || price_filter_lte
+        ? `&name=${name === null ? "" : name}&sort=${
+            sort === null ? "" : sort
+          }&price_filter_lte=${
+            price_filter_lte === null ? "" : price_filter_lte
+          }`
+        : ""
+    }`;
+    navigate(filterPriceGteUrl);
+  };
+
+  const handleChangeFilterPriceLte = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const value = e.target.value;
+    setFilterPriceLte(value);
+    const filterPriceLteUrl = `?price_filter_lte=${value}${
+      name || sort || price_filter_gte
+        ? `&name=${name === null ? "" : name}&sort=${
+            sort === null ? "" : sort
+          }&price_filter_gte=${
+            price_filter_lte === null ? "" : price_filter_lte
+          }`
+        : ""
+    }`;
+    navigate(filterPriceLteUrl);
+  };
+
   return (
     <>
       <div className="bg-[#f7f7f7] py-[15px] mb-[35px]">
@@ -14,38 +97,40 @@ const ProductPage = (props: Props) => {
             <div className="text-[#151515] text-lg font-semibold uppercase mb-[10px]">
               SẢN PHẨM
             </div>
-            <div className="flex items-center gap-x-2 text-[#1c1d1d]">
-              Trang chủ <i className="fa-solid fa-chevron-right text-[8px]"></i>
-              Sản phẩm
+            <div className="flex items-center text-sm text-[#1c1d1d]">
+              <span>Trang chủ</span>
+              <BiChevronRight size={18} />
+              <span>Sản phẩm</span>
             </div>
           </div>
         </div>
       </div>
+
       <div className="mb-10">
         <div className="px-[170px] flex gap-x-[22px]">
-          <div className="w-[25%] flex-shrink-0">
-            <div className="mb-5">
+          <div className="w-[25%] flex-shrink-0 flex flex-col gap-y-5">
+            <div>
               <div className="border border-solid border-[#ccc]">
                 <UserSideMenu />
               </div>
             </div>
 
             <div>
-              <div className="py-[10px] px-5 bg-digital-400 text-white text-base">
-                <span className="pl-[14px] uppercase font-semibold">
-                  MUA SẮM THEO
-                </span>
+              <div className="flex items-center py-[10px] gap-x-2 px-5 bg-main-200 text-white text-base">
+                <AiOutlineUnorderedList size={16} />
+                <span className="uppercase font-semibold">MUA SẮM THEO</span>
               </div>
 
               <div className="border border-solid border-[#ccc]">
                 <div className="py-[15px] px-[20px]">
-                  <div className="text-[#505050] text-[17px] font-semibold mb-[10px]">
+                  <div className="text-main-500 text-[17px] font-semibold mb-[10px]">
                     Sắp xếp theo
                   </div>
                   <select
                     name=""
                     id=""
-                    className="border border-solid border-gray-500 p-2 w-full"
+                    className="border border-solid border-[rgba(26,27,24,.75)] pl-[15px] pr-5 w-full text-xs bg-[#f6f6f6] text-[#1c1d1d] py-[10px]"
+                    onChange={handleChangeSort}
                   >
                     <option value="">Sản phẩm nổi bật</option>
                     <option value="">Bán chạy nhất</option>
@@ -57,21 +142,21 @@ const ProductPage = (props: Props) => {
                 </div>
 
                 <div className="py-[15px] px-[20px]">
-                  <div className="text-[#505050] text-[17px] font-semibold mb-[10px]">
+                  <div className="text-main-500 text-[17px] font-semibold mb-[10px]">
                     Giá
                   </div>
 
-                  <div className="border border-solid border-gray-300 w-full">
-                    <div className="border-b border-solid border-gray-300">
-                      <div className="p-2 text-[#505050] leading-6">
+                  <div className="border border-solid border-[rgba(26,27,24,0.2)] w-full">
+                    <div className="border-b border-solid border-[rgba(26,27,24,0.2)]">
+                      <div className="px-[10px] py-[5px] text-main-500 text-sm">
                         Giá cao nhất là 46.893.977,41 VND. Giá trị đầu vào mặc
-                        định là VND
+                        định là VND<span className="underline">Reset</span>
                       </div>
                     </div>
 
-                    <form action="" className="px-4 py-6">
+                    <form className="px-4 py-6">
                       <div className="mb-[10px] flex items-center gap-x-[6px]">
-                        <label htmlFor="" className="text-[#505050] text-xs">
+                        <label htmlFor="" className="text-main-500 text-xs">
                           VND
                         </label>
                         <input
@@ -79,11 +164,13 @@ const ProductPage = (props: Props) => {
                           placeholder="Từ"
                           className="w-full bg-[#f6f6f6] pl-[10px] border-none"
                           id="gte-input"
+                          value={filterPriceGte}
+                          onChange={handleChangeFilterPriceGte}
                         />
                       </div>
 
                       <div className="mb-[10px] flex items-center gap-x-[6px]">
-                        <label htmlFor="" className="text-[#505050] text-xs">
+                        <label htmlFor="" className="text-main-500 text-xs">
                           VND
                         </label>
                         <input
@@ -91,6 +178,8 @@ const ProductPage = (props: Props) => {
                           placeholder="Đến"
                           className="w-full bg-[#f6f6f6] pl-[10px] border-none"
                           id="lte-input"
+                          value={filterPriceLte}
+                          onChange={handleChangeFilterPriceLte}
                         />
                       </div>
                     </form>
@@ -98,102 +187,54 @@ const ProductPage = (props: Props) => {
                 </div>
               </div>
             </div>
+
+            <div className="w-full h-full">
+              <img
+                src="https://digital-world-2.myshopify.com/cdn/shop/files/banner1-bottom-home2_b96bc752-67d4-45a5-ac32-49dc691b1958_300x.jpg?v=1613166661"
+                alt=""
+              />
+            </div>
           </div>
 
           <div className="w-[75%] flex-1">
-            <div className="grid grid-cols-3 gap-x-[22px]">
-              <div className="border border-solid border-[#ccc] px-[15px] mb-10 pb-6 pt-[15px]">
-                <div className="w-[250px] h-[250px] mb-5">
-                  <Link to={`/products/`}>
-                    <img
-                      src="https://cdn.shopify.com/s/files/1/1903/4853/products/z1_877559ca-7315-44b0-9f7f-f393bd0808bd_1024x1024.jpg?v=1491404790"
-                      alt=""
-                      className="w-full h-full object-cover"
-                    />
-                  </Link>
-                </div>
-
-                <div>
-                  <h3 className="text-[#505050] text-base mb-[6px]">
-                    <Link to={`/products/`}>LENOVO IDEAPAD 110</Link>
-                  </h3>
-                  <div className="text-[#f1b400] text-xs flex gap-x-[2px] mb-[10px]">
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                  </div>
-                  <span className="text-base">1760637873 VND</span>
-                </div>
-              </div>
-
-              <div className="border border-solid border-[#ccc] px-[15px] mb-10 pb-6 pt-[15px]">
-                <div className="w-[250px] h-[250px] mb-5">
-                  <Link to={`/products/`}>
-                    <img
-                      src="https://cdn.shopify.com/s/files/1/1903/4853/products/z1_877559ca-7315-44b0-9f7f-f393bd0808bd_1024x1024.jpg?v=1491404790"
-                      alt=""
-                      className="w-full h-full object-cover"
-                    />
-                  </Link>
-                </div>
-
-                <div>
-                  <h3 className="text-[#505050] text-base mb-[6px]">
-                    <Link to={`/products/`}>LENOVO IDEAPAD 110</Link>
-                  </h3>
-                  <div className="text-[#f1b400] text-xs flex gap-x-[2px] mb-[10px]">
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                  </div>
-                  <span className="text-base">1760637873 VND</span>
-                </div>
-              </div>
-
-              <div className="border border-solid border-[#ccc] px-[15px] mb-10 pb-6 pt-[15px]">
-                <div className="w-[250px] h-[250px] mb-5">
-                  <Link to={`/products/`}>
-                    <img
-                      src="https://cdn.shopify.com/s/files/1/1903/4853/products/z1_877559ca-7315-44b0-9f7f-f393bd0808bd_1024x1024.jpg?v=1491404790"
-                      alt=""
-                      className="w-full h-full object-cover"
-                    />
-                  </Link>
-                </div>
-
-                <div>
-                  <h3 className="text-[#505050] text-base mb-[6px]">
-                    <Link to={`/products/`}>LENOVO IDEAPAD 110</Link>
-                  </h3>
-                  <div className="text-[#f1b400] text-xs flex gap-x-[2px] mb-[10px]">
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                  </div>
-                  <span className="text-base">1760637873 VND</span>
-                </div>
-              </div>
+            <div className="flex mx-[-11px] gap-y-5 flex-wrap mb-10">
+              {data?.products.map((product: IProduct) => (
+                <ProductItem key={product._id} product={product} />
+              ))}
             </div>
 
-            <div className="pagination">
-              <div className="pagination-container text-base px-[170px] text-center">
-                <a href="#" className="pr-4">
+            <div className="flex items-center justify-center gap-x-4 font-medium text-base uppercase">
+              <div className="hover:text-[#ee3131] text-black">
+                <NavLink
+                  to="#"
+                  className={({ isActive }) =>
+                    isActive ? "text-[#ee3131]" : "text-black"
+                  }
+                >
                   1
-                </a>
-                <a href="#" className="pr-4">
-                  2
-                </a>
-                <a href="#" className="pr-4">
-                  3
-                </a>
+                </NavLink>
+              </div>
 
-                <i className="fa-sharp fa-solid fa-arrow-right"></i>
+              <div className="hover:text-[#ee3131] text-black">
+                <NavLink
+                  to="#"
+                  className={({ isActive }) =>
+                    isActive ? "text-[#ee3131]" : "text-black"
+                  }
+                >
+                  2
+                </NavLink>
+              </div>
+
+              <div className="hover:text-[#ee3131] text-black">
+                <NavLink
+                  to="#"
+                  className={({ isActive }) =>
+                    isActive ? "text-[#ee3131]" : "text-black"
+                  }
+                >
+                  <BsArrowRight />
+                </NavLink>
               </div>
             </div>
           </div>
