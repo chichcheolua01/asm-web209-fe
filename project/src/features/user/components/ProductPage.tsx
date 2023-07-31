@@ -207,7 +207,7 @@ const ProductPage = (props: Props) => {
               sort={sort}
               price_filter_gte={price_filter_gte}
               price_filter_lte={price_filter_lte}
-              totalCount={9}
+              totalCount={data?.totalProduct as number}
             />
           </div>
         </div>
