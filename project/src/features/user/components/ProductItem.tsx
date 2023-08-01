@@ -19,16 +19,20 @@ const ProductItem = (props: ProductItemProps) => {
 
   return (
     <div
-      className="w-[calc(calc(100%_/_3)_-_22px)] mx-[11px] border border-[#ebebeb] p-[15px] relative h-full cursor-pointer"
+      className="w-[calc(calc(100%_/_3)_-_22px)] mx-[11px] border border-[#ebebeb] p-[15px] relative cursor-pointer flex flex-col"
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
     >
-      <div className="mb-5 w-full h-full">
-        <img src={product.thumb} alt="" />
+      <div className="mb-5 w-full h-[250px] flex-shrink-0">
+        <img
+          src={product.thumb}
+          alt=""
+          className="w-full h-full object-cover"
+        />
       </div>
 
-      <div>
-        <div className="mb-[6px] text-base text-main-500">
+      <div className="flex-1 flex flex-col">
+        <div className="mb-[6px] text-base text-main-500 line-clamp-2">
           <Link to={"/products"}>{product.name}</Link>
         </div>
 
@@ -49,7 +53,7 @@ const ProductItem = (props: ProductItemProps) => {
         }`}
       >
         <div className="w-full flex items-center justify-between pl-4 pr-1 pb-[10px] mb-[10px] border-b border-[#ebebeb]">
-          <div className="mb-[6px] text-base text-[#2b3743] leading-[18px] hover:text-main-200">
+          <div className="mb-[6px] text-base text-[#2b3743] leading-[18px] hover:text-main-200 line-clamp-4">
             <Link to={"/products"}>{product.name}</Link>
           </div>
 
@@ -61,7 +65,7 @@ const ProductItem = (props: ProductItemProps) => {
         <div className="py-[10px] px-5 w-full">
           <div
             dangerouslySetInnerHTML={{ __html: formattedProductDesc }}
-            className="text-[13px] leading-[18px] text-main-500 mb-[15px]"
+            className="text-[13px] leading-[18px] text-main-500 mb-[15px] line-clamp-[12]"
           ></div>
 
           <div className="flex items-center gap-x-2 ">

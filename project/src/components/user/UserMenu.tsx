@@ -8,18 +8,19 @@ const UserMenu = (props: Props) => {
   const [searchParams] = useSearchParams();
   const sort = searchParams.get("sort")!;
   const price_filter_gte = searchParams.get("price_filter_gte")!;
-  const price_filter_lte = searchParams.get("price_filter_gte")!;
+  const price_filter_lte = searchParams.get("price_filter_lte")!;
+  const page = searchParams.get("page")!;
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const inputValue = (e.target as HTMLFormElement).searchInput.value;
     const searchUrl = `?name=${inputValue}${
-      sort || price_filter_gte || price_filter_lte
+      sort || price_filter_gte || price_filter_lte || page
         ? `&sort=${sort === null ? "" : sort}&price_filter_gte=${
             price_filter_gte === null ? "" : price_filter_gte
           }&price_filter_lte=${
             price_filter_lte === null ? "" : price_filter_lte
-          }`
+          }&page=${page === null ? "" : page}`
         : ""
     }`;
 
