@@ -18,7 +18,6 @@ const HomePage = (props: Props) => {
   const { data, isFetching, isLoading } = useGetProductsQuery();
   const products = data?.products;
   const dailyProduct = data?.products[0];
-  console.log(dailyProduct);
   const [productType, setProductType] = useState<string>("best_seller");
   const handleChangeType = (type: string) => {
     setProductType(type);

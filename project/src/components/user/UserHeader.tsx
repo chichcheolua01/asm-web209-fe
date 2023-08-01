@@ -13,10 +13,13 @@ import {
   BsFillHandbagFill,
 } from "react-icons/bs";
 import { GrMail } from "react-icons/gr";
+import { useDispatch } from "react-redux";
+import { displayCart } from "../../features/user/cart.slice";
 
 type Props = {};
 
 const UserHeader = (props: Props) => {
+  const dispatch = useDispatch();
   return (
     <div className="">
       <header>
@@ -89,14 +92,17 @@ const UserHeader = (props: Props) => {
                   <BsHeart />
                 </div>
               </div>
-              <div className="flex items-center border border-y-0 border-l-0 border-r-1 px-[15px]">
+              <button
+                className="flex items-center border border-y-0 border-l-0 border-r-1 px-[15px]"
+                onClick={() => dispatch(displayCart())}
+              >
                 <div className="flex items-center space-x-[5px]">
                   <div className="text-[#EE3131]">
                     <BsFillHandbagFill />
                   </div>
                   <p>0 item</p>
                 </div>
-              </div>
+              </button>
             </div>
           </div>
         </div>

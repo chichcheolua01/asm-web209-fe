@@ -12,10 +12,8 @@ const UserNewArrival = ({ type, products }: Props) => {
   let productsType: IProduct[] | undefined = [];
   if (type == "best_seller") {
     productsType = products?.filter((item, index) => index < 4);
-    console.log(productsType);
   } else {
     productsType = products?.filter((item, index) => index >= 4);
-    console.log(productsType);
   }
 
   const settings = {
@@ -34,7 +32,7 @@ const UserNewArrival = ({ type, products }: Props) => {
       </h2>
       <Slider {...settings}>
         {productsType?.map((item, index) => (
-          <a href={`products/id/${item._id}`}>
+          <a href={`products/id/${item._id}`} key={index}>
             <UserItem item={item} index={index} />
           </a>
         ))}
