@@ -15,10 +15,8 @@ const ProductPage = (props: Props) => {
   const [seletedSort, setSeletedSort] = useState<string>("");
   const [filterPriceGte, setFilterPriceGte] = useState<string>("");
   const [filterPriceLte, setFilterPriceLte] = useState<string>("");
-
   const [searchParams] = useSearchParams();
   const { category } = useParams();
-
   const name = searchParams.get("name")!;
   const sort = searchParams.get("sort")!;
   const price_filter_gte = searchParams.get("price_filter_gte")!;

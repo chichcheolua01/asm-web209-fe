@@ -5,14 +5,15 @@ import { categoryReducer } from "../features/user/category.slice";
 import { productApi } from "../features/user/product.services";
 import productReducer from "../features/user/product.slice";
 import { categoryApi } from "../features/user/category.services";
+import cartReducer from "../features/user/cart.slice";
 
 export const store = configureStore({
   reducer: {
     product: productReducer,
     [productApi.reducerPath]: productApi.reducer, //reducer duoc tao tu api slice
-
     category: categoryReducer,
     [categoryApi.reducerPath]: categoryApi.reducer,
+    cart: cartReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()

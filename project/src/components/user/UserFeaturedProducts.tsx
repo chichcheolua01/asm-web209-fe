@@ -20,7 +20,7 @@ const UserFeaturedProducts = ({ products }: Props) => {
       <div className="grid grid-cols-3 gap-[15px] py-[20px]">
         {products?.map((item, index) => {
           return (
-            <a href={`products/id/${item._id}`}>
+            <a href={`products/id/${item._id}`} key={index}>
               <div className="grid grid-cols-5 items-center p-[20px] space-x-[20px] border border-1">
                 <div>
                   <img src={item.images[0]} alt="" />
