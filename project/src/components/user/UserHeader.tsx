@@ -13,8 +13,9 @@ import {
   BsFillHandbagFill,
 } from "react-icons/bs";
 import { GrMail } from "react-icons/gr";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { displayCart } from "../../features/user/cart.slice";
+import { RootState } from "../../store/store";
 
 type Props = {};
 
@@ -100,7 +101,7 @@ const UserHeader = (props: Props) => {
                   <div className="text-[#EE3131]">
                     <BsFillHandbagFill />
                   </div>
-                  <p>0 item</p>
+                  <p className="text-[13px] font-extralight">0 item</p>
                 </div>
               </button>
             </div>

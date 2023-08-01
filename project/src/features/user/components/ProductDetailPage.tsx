@@ -1,8 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useGetProductQuery } from "../product.services";
+import { IProduct } from "../../../interfaces/product.interface";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../cart.slice";
 
 type Props = {};
 
 const ProductDetailPage = (props: Props) => {
+  const { id } = useParams();
+  const { data, isFetching, isLoading } = useGetProductQuery(id!);
+  const product = data?.productData;
+  function formatCurrency(amount: number | undefined) {
+    return ((amount as number) / 100).toLocaleString("vi-VN", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+  }
+  const dispatch = useDispatch();
   return (
     <div>
       <div className="pages  py-[15px] mb-[35px]">
@@ -10,7 +25,7 @@ const ProductDetailPage = (props: Props) => {
           <div>
             <div className="flex items-center gap-x-2 text-[#1c1d1d]">
               Trang chủ <i className="fa-solid fa-chevron-right text-[8px]"></i>
-              Product name
+              {product?.name}
             </div>
           </div>
         </div>
@@ -21,25 +36,32 @@ const ProductDetailPage = (props: Props) => {
           <div className="product-images w-[50%] flex-shrink-0">
             <div className="flex">
               <div>
-                <div
-                  className="w-[75px] h-[75px] cursor-pointer pr-3">
-                  <img src="https://laptoptcc.com/wp-content/uploads/2020/07/9510-dell-xps-laptop-tcc-768x768.jpg" />
+                <div className="w-[75px] h-[75px] cursor-pointer pr-3">
+                  <img src={product?.images[0]} />
+                </div>
+                <div className="w-[75px] h-[75px] cursor-pointer pr-3">
+                  <img src={product?.images[1]} />
+                </div>
+                <div className="w-[75px] h-[75px] cursor-pointer pr-3">
+                  <img src={product?.images[2]} />
+                </div>
+                <div className="w-[75px] h-[75px] cursor-pointer pr-3">
+                  <img src={product?.images[4]} />
                 </div>
               </div>
-
               <div className="w-[460px] h-[460px] border border-solid border-[#eee] cursor-pointer">
-                <img src="https://laptoptcc.com/wp-content/uploads/2020/07/9510-dell-xps-laptop-tcc-768x768.jpg" className="" />
+                <img src={product?.images[0]} className="" />
               </div>
             </div>
           </div>
 
           <div className="product-content w-[50%] flex-1">
             <h2 className="text-3xl font-semibold uppercase mb-[18px]">
-              Product name
+              {product?.name}
             </h2>
 
             <span className="text-xl text-[red] mb-2 inline-block">
-              100.000 VND
+              {formatCurrency(product?.price)} VND
             </span>
             <div className="mb-3">
               <i className="fa fa-star text-[#f1b400]"></i>
@@ -51,13 +73,14 @@ const ProductDetailPage = (props: Props) => {
             </div>
 
             <div className="mb-4">
-              <p>
-                Mo ta ngan ve san pham
-              </p>
+              <p>{product?.description}</p>
             </div>
 
-            <div className="mb-4">
-              <span className="text-[#151515] font-semibold pr-2"> Số lượng </span>
+            {/* <div className="mb-4">
+              <span className="text-[#151515] font-semibold pr-2">
+                {" "}
+                Số lượng
+              </span>
               <input
                 type="number"
                 min="0"
@@ -65,9 +88,12 @@ const ProductDetailPage = (props: Props) => {
                 value="1"
                 className="pl-2 h-8 w-[120px] text-[black] border-black"
               />
-            </div>
+            </div> */}
 
-            <button className="bg-digital-400 bg-red-500 hover:bg-red-700 text-white mb-5 py-2 px-4 rounded">
+            <button
+              className="bg-digital-400 bg-red-500 hover:bg-red-700 text-white mb-5 py-2 px-4 rounded"
+              onClick={() => dispatch(addToCart(product))}
+            >
               Thêm vào giỏ hàng
             </button>
 
@@ -89,9 +115,7 @@ const ProductDetailPage = (props: Props) => {
       <div className="product-desc mb-[30px]">
         <div className="product-desc-container px-[170px]">
           <div className="flex gap-x-1">
-            <div className="py-[9px] px-5  cursor-pointer uppercase">
-              Mô tả
-            </div>
+            <div className="py-[9px] px-5  cursor-pointer uppercase">Mô tả</div>
             <div className="py-[9px] px-5  cursor-pointer uppercase">
               BẢO HÀNH
             </div>
@@ -107,9 +131,7 @@ const ProductDetailPage = (props: Props) => {
           </div>
 
           <div className="p-5 border border-solid ">
-            <p>
-              Đây là mô tả sản phẩm
-            </p>
+            <p>Đây là mô tả sản phẩm</p>
           </div>
         </div>
       </div>
@@ -122,24 +144,20 @@ const ProductDetailPage = (props: Props) => {
             </div>
           </div>
 
-          <div className="grid grid-cols-4 gap-x-5" >
-
-            <div
-              className="border border-solid border-[#ccc] p-[15px]"
-
-            >
+          <div className="grid grid-cols-4 gap-x-5">
+            <div className="border border-solid border-[#ccc] p-[15px]">
               <div className="flex flex-col h-full">
                 <div className="flex-grow-0 w-[250px] h-[250px]">
                   <a href="">
-                    <img src="https://laptoptcc.com/wp-content/uploads/2021/04/9575-dell-xps-laptop-tcc.jpg" className="h-full w-full object-contain" />
+                    <img
+                      src="https://laptoptcc.com/wp-content/uploads/2021/04/9575-dell-xps-laptop-tcc.jpg"
+                      className="h-full w-full object-contain"
+                    />
                   </a>
                 </div>
 
                 <div className="flex-grow">
-                  <a
-                    // routerLink
-                    className="text-[#2b3743] text-base mb-[6px] inline-block line-clamp-2"
-                  >
+                  <a className="text-[#2b3743] text-base mb-[6px] inline-block line-clamp-2">
                     Relate product name
                   </a>
                   <div className="mb-3 text-[#f1b400] text-xs">
@@ -149,18 +167,15 @@ const ProductDetailPage = (props: Props) => {
                     <i className="fa fa-star"></i>
                     <i className="fa fa-star"></i>
                   </div>
-                  <span className="text-[#2b3743] text-base">
-
-                    200.000 VND
-                  </span>
+                  <span className="text-[#2b3743] text-base">200.000 VND</span>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div >
-    </div >
-  )
+      </div>
+    </div>
+  );
 };
 
 export default ProductDetailPage;
