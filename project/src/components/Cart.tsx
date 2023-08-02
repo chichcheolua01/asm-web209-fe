@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { RootState } from "../store/store";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  displayCart,
+  removeProductFromCart,
+} from "../features/user/cart.slice";
+import { HiOutlineChevronDoubleRight } from "react-icons/hi";
 
 type Props = {};
 
@@ -16,10 +21,24 @@ const Cart = (props: Props) => {
       maximumFractionDigits: 2,
     });
   }
+  const [total, setTotal] = useState<number>(0);
+  let price = 0;
+  useEffect(() => {
+    cartProducts.map((item) => {
+      price += item.price * item.quantity;
+    });
+    setTotal(price);
+  }, [cartProducts]);
+  const dispatch = useDispatch();
   return (
     <div className={cartClassName + " "} id="cart">
       <section className="z-20 relative">
         <div className="px-4 py-8 sm:px-6 sm:py-12 lg:px-8 absolute bg-slate-50 right-10 top-32 opacity-90 rounded-2xl">
+          <div className="flex flex-row-reverse">
+            <button onClick={() => dispatch(displayCart())}>
+              <HiOutlineChevronDoubleRight />
+            </button>
+          </div>
           <div className="mx-auto max-w-3xl">
             <header className="text-center">
               <h1 className="text-xl font-bold text-gray-900 sm:text-xl">
@@ -60,11 +79,15 @@ const Cart = (props: Props) => {
                             type="number"
                             min={1}
                             defaultValue={1}
+                            value={item.quantity}
                             id="Line1Qty"
                             className="h-8 w-12 rounded border-gray-200 bg-gray-50 p-0 text-center text-xs text-gray-600 [-moz-appearance:_textfield] focus:outline-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
                           />
                         </form>
-                        <button className="text-gray-600 transition hover:text-[#EE3131]">
+                        <button
+                          className="text-gray-600 transition hover:text-[#EE3131]"
+                          onClick={() => dispatch(removeProductFromCart(item))}
+                        >
                           <span className="sr-only">Remove item</span>
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -92,19 +115,21 @@ const Cart = (props: Props) => {
                   <dl className="space-y-0.5 text-sm text-gray-700">
                     <div className="flex justify-between">
                       <dt>Subtotal</dt>
-                      <dd>£250</dd>
+                      <dd>{formatCurrency(total)} VND</dd>
                     </div>
                     <div className="flex justify-between">
                       <dt>VAT</dt>
-                      <dd>£25</dd>
+                      <dd>{formatCurrency(total * 0.1)} VND</dd>
                     </div>
                     <div className="flex justify-between">
                       <dt>Discount</dt>
-                      <dd>-£20</dd>
+                      <dd>{formatCurrency(total * 0.09)} VND</dd>
                     </div>
                     <div className="flex justify-between !text-base font-medium">
                       <dt>Total</dt>
-                      <dd>£200</dd>
+                      <dd>
+                        {formatCurrency(total + total * 0.1 - total * 0.09)} VND
+                      </dd>
                     </div>
                   </dl>
                   <div className="flex justify-end">
