@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import icons from "../../../utils/icons";
-import usePagination from "../../../hooks/usePagination";
+import icons from "../../utils/icons";
+import usePagination from "../../hooks/usePagination";
 import clsx from "clsx";
 
 const { BsArrowRight } = icons;

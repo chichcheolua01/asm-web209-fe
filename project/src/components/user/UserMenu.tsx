@@ -37,6 +37,9 @@ const UserMenu = (props: Props) => {
           <Link to={`products`} className="px-3 py-2 text-sm font-medium">
             PRODUCTS
           </Link>
+          <Link to={`admin`} className="px-3 py-2 text-sm font-medium">
+            ADMIN DASHBOARD
+          </Link>
           <a href="#" className="px-3 py-2 text-sm font-medium">
             PAGES
           </a>

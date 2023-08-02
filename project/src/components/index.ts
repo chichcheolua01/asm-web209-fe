@@ -1,4 +1,5 @@
 import AdminHeader from "./admin/AdminHeader";
+import AdminSideBar from "./admin/AdminSideBar";
 import Cart from "./Cart";
 import UserBanner from "./user/UserBanner";
 import UserDailyDeal from "./user/UserDailyDeal";
@@ -30,4 +31,5 @@ export {
   UserItem,
   UserFeaturedBanner,
   UserNewArrival,
+  AdminSideBar,
 };
