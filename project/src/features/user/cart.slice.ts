@@ -22,6 +22,8 @@ const cartSlice = createSlice({
   reducers: {
     displayCart: (state) => {
       state.isDisplay = !state.isDisplay;
+      const localCart = localStorage.getItem("cart");
+      state.cartProducts = JSON.parse(localCart!);
     },
     addToCart: (state, action) => {
       const existedIndex = state.cartProducts.findIndex(
