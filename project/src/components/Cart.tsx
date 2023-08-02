@@ -18,7 +18,7 @@ const Cart = (props: Props) => {
   }
   return (
     <div className={cartClassName + " "} id="cart">
-      <section className="z-10 relative">
+      <section className="z-20 relative">
         <div className="px-4 py-8 sm:px-6 sm:py-12 lg:px-8 absolute bg-slate-50 right-10 top-32 opacity-90 rounded-2xl">
           <div className="mx-auto max-w-3xl">
             <header className="text-center">
