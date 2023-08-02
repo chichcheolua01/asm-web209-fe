@@ -22,7 +22,7 @@ const Cart = (props: Props) => {
         <div className="px-4 py-8 sm:px-6 sm:py-12 lg:px-8 absolute bg-slate-50 right-10 top-32 opacity-90 rounded-2xl">
           <div className="mx-auto max-w-3xl">
             <header className="text-center">
-              <h1 className="text-xl font-bold text-gray-900 sm:text-3xl">
+              <h1 className="text-xl font-bold text-gray-900 sm:text-xl">
                 Your Cart
               </h1>
             </header>
@@ -64,7 +64,7 @@ const Cart = (props: Props) => {
                             className="h-8 w-12 rounded border-gray-200 bg-gray-50 p-0 text-center text-xs text-gray-600 [-moz-appearance:_textfield] focus:outline-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
                           />
                         </form>
-                        <button className="text-gray-600 transition hover:text-red-600">
+                        <button className="text-gray-600 transition hover:text-[#EE3131]">
                           <span className="sr-only">Remove item</span>
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -131,7 +131,7 @@ const Cart = (props: Props) => {
                   <div className="flex justify-end">
                     <a
                       href="#"
-                      className="block rounded bg-gray-700 px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-600"
+                      className="block rounded bg-[#EE3131] px-5 py-3 text-sm text-gray-100 transition hover:bg-red-500"
                     >
                       Checkout
                     </a>
