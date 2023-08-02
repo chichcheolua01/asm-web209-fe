@@ -15,12 +15,15 @@ const UserItem = ({ item, index }: Props) => {
   }
   return (
     <div>
-      <div key={index} className="p-[15px] focus:outline-none">
+      <div
+        key={index}
+        className="p-[15px] focus:outline-none hover:text-[#EE3131] text-[#2B3743]"
+      >
         <img src={item?.images[0]} alt={`Image ${index + 1}`} />
-        <p className="text-[#2B3743] text-[16px] font-extralight mb-[5px]">
+        <p className="text-[16px] font-extralight mb-[5px]">
           {item?.name}
         </p>
-        <p className="text-[#2B3743] text-[16px] font-extralight">
+        <p className="text-[16px] font-extralight">
           {formatCurrency(item?.price)} VND
         </p>
       </div>
