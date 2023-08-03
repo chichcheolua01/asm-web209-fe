@@ -22,6 +22,7 @@ const HomePage = (props: Props) => {
   const handleChangeType = (type: string) => {
     setProductType(type);
   };
+  
   return (
     <div className="py-[20px]">
       <div className="flex justify-center">

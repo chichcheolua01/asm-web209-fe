@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useGetProductQuery } from "../product.services";
 import { IProduct } from "../../../interfaces/product.interface";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../cart.slice";
+import { addToCart, setLocalCart } from "../cart.slice";
 
 type Props = {};
 
@@ -92,7 +92,9 @@ const ProductDetailPage = (props: Props) => {
 
             <button
               className="bg-digital-400 bg-red-500 hover:bg-red-700 text-white mb-5 py-2 px-4 rounded"
-              onClick={() => dispatch(addToCart(product))}
+              onClick={() => {
+                dispatch(addToCart(product));
+              }}
             >
               Thêm vào giỏ hàng
             </button>
