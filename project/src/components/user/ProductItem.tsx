@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import icons from "../../../utils/icons";
+import icons from "../../utils/icons";
 import { Link } from "react-router-dom";
-import { IProduct } from "../../../interfaces/product.interface";
+import { IProduct } from "../../interfaces/product.interface";
 
 const { AiTwotoneStar, LiaBarsSolid, FaEye, BsFillHeartFill } = icons;
 

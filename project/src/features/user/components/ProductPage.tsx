@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import UserSideMenu from "../../../components/user/UserSideMenu";
 import icons from "../../../utils/icons";
-import ProductItem from "./ProductItem";
+import ProductItem from "../../../components/user/ProductItem";
 import { useGetProducts2Query } from "../product.services";
 import { IProduct } from "../../../interfaces/product.interface";
-import Pagination from "./Pagination";
+import Pagination from "../../../components/user/Pagination";
 
 const { BiChevronRight, AiOutlineUnorderedList } = icons;
 
