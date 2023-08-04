@@ -1,11 +1,10 @@
 import React from "react";
 import { AiOutlineUnorderedList } from "react-icons/ai";
-import { SiAsus, SiDell } from "react-icons/si";
-import { IoLogoApple } from "react-icons/io";
-import { RiAliensFill } from "react-icons/ri";
+import { SiAsus } from "react-icons/si";
 import { useGetCategoriesQuery } from "../../features/user/category.services";
 import { ICategory } from "../../interfaces/category.interface";
 import { Link } from "react-router-dom";
+import laptop_icon from "../../assets/laptop-icon.png";
 
 type Props = {};
 
@@ -28,11 +27,11 @@ const UserSideMenu = (props: Props) => {
             <li className="py-2" key={category._id}>
               <Link
                 to={`/category/${category.slug}`}
-                className="text-white block pl-4"
+                className="text-white block pl-5"
               >
-                <div className="flex space-x-[10px] items-center text-[#1c1d1d]">
-                  <div>
-                    <SiAsus size={35} />
+                <div className="flex space-x-[12px] items-center text-[#1c1d1d]">
+                  <div className="w-6 h-6">
+                    <img src={laptop_icon} alt="" className="w-full h-full" />
                   </div>
                   <p className="text-[14px] ">{category.name}</p>
                 </div>
