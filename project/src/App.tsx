@@ -19,6 +19,7 @@ import {
   ProductPage,
   SigninPage,
   SignupPage,
+  CartPage
 } from "./features/user/components/index";
 import { Cart } from "./components";
 import { useDispatch, useSelector } from "react-redux";
@@ -50,6 +51,7 @@ function App() {
             <Route path="category/:category" element={<ProductPage />} />
             <Route path="signin" element={<SigninPage />} />
             <Route path="signup" element={<SignupPage />} />
+            <Route path="cart" element={<CartPage />} />
           </Route>
 
           <Route path="admin" element={<AdminLayout />}>
