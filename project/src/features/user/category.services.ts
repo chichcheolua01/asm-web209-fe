@@ -10,7 +10,7 @@ export const categoryApi = createApi({
   reducerPath: "categoryApi",
   tagTypes: ["Categories"],
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:8080/api",
+    baseUrl: "http://localhost:8888/api",
   }),
   endpoints: (build) => ({
     getCategories: build.query<IGetCategoriesResponse, void>({

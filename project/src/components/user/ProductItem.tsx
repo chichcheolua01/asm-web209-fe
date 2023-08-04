@@ -48,13 +48,12 @@ const ProductItem = (props: ProductItemProps) => {
       </div>
 
       <div
-        className={`absolute w-full h-full top-0 left-0 py-[10px] bg-white z-10 transition-all duration-400 ease-out ${
-          isHover ? "opacity-1 visible" : "opacity-0 invisible"
-        }`}
+        className={`absolute w-full h-full top-0 left-0 py-[10px] bg-white z-10 transition-all duration-400 ease-out ${isHover ? "opacity-1 visible" : "opacity-0 invisible"
+          }`}
       >
         <div className="w-full flex items-center justify-between pl-4 pr-1 pb-[10px] mb-[10px] border-b border-[#ebebeb]">
           <div className="mb-[6px] text-base text-[#2b3743] leading-[18px] hover:text-main-200 line-clamp-4">
-            <Link to={"/products"}>{product.name}</Link>
+            <Link to={`/products/id/${product._id}`}>{product.name}</Link>
           </div>
 
           <div className="text-base text-right leading-[18px]">
@@ -63,10 +62,11 @@ const ProductItem = (props: ProductItemProps) => {
         </div>
 
         <div className="py-[10px] px-5 w-full">
-          <div
-            dangerouslySetInnerHTML={{ __html: formattedProductDesc }}
-            className="text-[13px] leading-[18px] text-main-500 mb-[15px] line-clamp-[12]"
-          ></div>
+          <Link to={`/products/id/${product._id}`}>
+            <div
+              dangerouslySetInnerHTML={{ __html: formattedProductDesc }}
+              className="text-[13px] leading-[18px] text-main-500 mb-[15px] line-clamp-[12]"
+            ></div></Link>
 
           <div className="flex items-center gap-x-2 ">
             <div className="w-10 h-10 border border-[#c5cfd6] bg-white text-[#2a2a2a] rounded-full flex items-center justify-center cursor-pointer hover:border-transparent hover:bg-[#2a2a2a] hover:text-white transition-all duration-500 ease-out">

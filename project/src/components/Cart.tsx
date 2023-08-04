@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { RootState } from "../store/store";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import {
   displayCart,
   removeProductFromCart,
@@ -42,7 +43,7 @@ const Cart = (props: Props) => {
           <div className="mx-auto max-w-3xl">
             <header className="text-center">
               <h1 className="text-xl font-bold text-gray-900 sm:text-xl">
-                Your Cart
+                <Link to={'cart'}>Your Cart</Link>
               </h1>
             </header>
             <div className="mt-8">
