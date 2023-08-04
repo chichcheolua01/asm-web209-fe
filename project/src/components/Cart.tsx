@@ -43,7 +43,7 @@ const Cart = (props: Props) => {
           <div className="mx-auto max-w-3xl">
             <header className="text-center">
               <h1 className="text-xl font-bold text-gray-900 sm:text-xl">
-                <Link to={'cart'}>Your Cart</Link>
+                <Link to={"cart"}>Your Cart</Link>
               </h1>
             </header>
             <div className="mt-8">

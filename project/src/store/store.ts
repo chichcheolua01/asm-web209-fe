@@ -10,7 +10,7 @@ import cartReducer from "../features/user/cart.slice";
 export const store = configureStore({
   reducer: {
     product: productReducer,
-    [productApi.reducerPath]: productApi.reducer, //reducer duoc tao tu api slice
+    [productApi.reducerPath]: productApi.reducer, 
     category: categoryReducer,
     [categoryApi.reducerPath]: categoryApi.reducer,
     cart: cartReducer,
@@ -21,6 +21,5 @@ export const store = configureStore({
       .concat(categoryApi.middleware),
 });
 
-// Lay RootState va AppDispatch tu store cua chung ta
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
