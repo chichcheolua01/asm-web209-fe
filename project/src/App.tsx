@@ -22,16 +22,14 @@ import {
 } from "./features/user/components/index";
 import { Cart } from "./components";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "./store/store";
 import { setLocalCart } from "./features/user/cart.slice";
 
 function App() {
   const dispatch = useDispatch();
   function handleLoadEvent() {
     // Call dispatch(setLocalCart()) here
-    dispatch({ type: "category/setLocalCart", payload: undefined });
+    dispatch(setLocalCart());
   }
-
   // Add the event listener with the handleLoadEvent function as the callback
   window.addEventListener("load", handleLoadEvent);
   return (
