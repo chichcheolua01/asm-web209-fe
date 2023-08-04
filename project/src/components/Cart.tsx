@@ -25,7 +25,7 @@ const Cart = (props: Props) => {
   const [total, setTotal] = useState<number>(0);
   let price = 0;
   useEffect(() => {
-    cartProducts.map((item) => {
+    cartProducts?.map((item) => {
       price += item.price * item.quantity;
     });
     setTotal(price);
@@ -47,7 +47,7 @@ const Cart = (props: Props) => {
               </h1>
             </header>
             <div className="mt-8">
-              {cartProducts.map((item, index) => {
+              {cartProducts?.map((item, index) => {
                 return (
                   <ul className="space-y-4">
                     <li className="flex items-center gap-4">

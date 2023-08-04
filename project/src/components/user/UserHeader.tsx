@@ -103,8 +103,8 @@ const UserHeader = (props: Props) => {
                     <BsFillHandbagFill />
                   </div>
                   <p className="text-[13px] font-extralight">
-                    {cartProducts.length}{" "}
-                    {cartProducts.length > 1 ? "items" : "item"}
+                    {cartProducts?.length}{" "}
+                    {cartProducts?.length > 1 ? "items" : "item"}
                   </p>
                 </div>
               </button>
