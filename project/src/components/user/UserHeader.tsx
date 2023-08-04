@@ -21,6 +21,7 @@ type Props = {};
 
 const UserHeader = (props: Props) => {
   const dispatch = useDispatch();
+  const { cartProducts } = useSelector((state: RootState) => state.cart);
   return (
     <div className="">
       <header>
@@ -101,7 +102,10 @@ const UserHeader = (props: Props) => {
                   <div className="text-[#EE3131]">
                     <BsFillHandbagFill />
                   </div>
-                  <p className="text-[13px] font-extralight">0 item</p>
+                  <p className="text-[13px] font-extralight">
+                    {cartProducts.length}{" "}
+                    {cartProducts.length > 1 ? "items" : "item"}
+                  </p>
                 </div>
               </button>
             </div>
