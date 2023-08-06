@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import icons from "../../utils/icons";
 import usePagination from "../../hooks/usePagination";
 import clsx from "clsx";
+import { handlePageUrl } from "../../utils/fn";
 
 const { BsArrowRight } = icons;
 
@@ -20,17 +21,13 @@ const Pagination = (props: IPaginationProps) => {
   const pagination = usePagination(totalCount, 1);
 
   const handlePaginationUrl = (value: string | number) => {
-    const paginationUrl = `?page=${value}${
-      name || price_filter_gte || price_filter_lte || sort
-        ? `&name=${name === null ? "" : name}&sort=${
-            sort === null ? "" : sort
-          }&price_filter_gte=${
-            price_filter_gte === null ? "" : price_filter_gte
-          }&price_filter_lte=${
-            price_filter_lte === null ? "" : price_filter_lte
-          }`
-        : ""
-    }`;
+    const paginationUrl = handlePageUrl(
+      value,
+      name,
+      sort,
+      price_filter_gte,
+      price_filter_lte
+    );
 
     navigate(paginationUrl);
   };

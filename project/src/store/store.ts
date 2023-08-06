@@ -12,9 +12,12 @@ export const store = configureStore({
   reducer: {
     product: productReducer,
     [productApi.reducerPath]: productApi.reducer,
+
     category: categoryReducer,
     [categoryApi.reducerPath]: categoryApi.reducer,
+
     cart: cartReducer,
+
     users: userReducer,
     [userApi.reducerPath]: userApi.reducer,
   },

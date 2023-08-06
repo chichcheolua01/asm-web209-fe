@@ -66,7 +66,7 @@ function App() {
             <Route path="products">
               <Route index element={<ProductManagePage />} />
               <Route path="create" element={<CreateProduct />} />
-              <Route path="update" element={<UpdateProduct />} />
+              <Route path="update/:id" element={<UpdateProduct />} />
             </Route>
             <Route path="categories">
               <Route index element={<CategoryManagePage />} />

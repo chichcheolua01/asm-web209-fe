@@ -108,8 +108,46 @@ export const productApi = createApi({
     getProduct: build.query<IGetOneApiResponse, string>({
       query: (id) => `products/id/${id}`,
     }),
+    addProduct: build.mutation<IProduct, Omit<IProduct, "_id">>({
+      query(body) {
+        return {
+          url: "products",
+          method: "POST",
+          body,
+        };
+      },
+      invalidatesTags: (result, error, body) =>
+        error ? [] : [{ type: "Products", id: "LIST" }],
+    }),
+    updateProduct: build.mutation<IProduct, { id: string; body: IProduct }>({
+      query(data) {
+        return {
+          url: `products/${data.id}`,
+          method: "PUT",
+          body: data.body,
+        };
+      },
+      invalidatesTags: (result, error, data) =>
+        error ? [] : [{ type: "Products", _id: data.id }],
+    }),
+    deleteProduct: build.mutation<{}, string>({
+      query(id) {
+        return {
+          url: `products/${id}`,
+          method: "DELETE",
+        };
+      },
+      invalidatesTags: (result, error, _id) => [{ type: "Products", _id }],
+    }),
   }),
 });
 
-export const { useGetProductsQuery, useGetProductQuery, useGetProducts2Query } =
-  productApi;
+export const {
+  useGetProductsQuery,
+  useGetProductQuery,
+  useGetProducts2Query,
+
+  useAddProductMutation,
+  useDeleteProductMutation,
+  useUpdateProductMutation,
+} = productApi;
