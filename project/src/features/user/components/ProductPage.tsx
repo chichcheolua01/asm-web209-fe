@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import UserSideMenu from "../../../components/user/UserSideMenu";
 import icons from "../../../utils/icons";
@@ -6,48 +6,58 @@ import ProductItem from "../../../components/user/ProductItem";
 import { useGetProducts2Query } from "../product.services";
 import { IProduct } from "../../../interfaces/product.interface";
 import Pagination from "../../../components/user/Pagination";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setFilterPriceGte,
+  setFilterPriceLte,
+  setSeletedSort,
+} from "../product.slice";
+import {
+  handleFilterPriceGteUrl,
+  handleFilterPriceLteUrl,
+  handleSortUrl,
+  name,
+  page,
+  price_filter_gte,
+  price_filter_lte,
+  sort,
+} from "../../../utils/fn";
+import { RootState } from "../../../store/store";
 
 const { BiChevronRight, AiOutlineUnorderedList } = icons;
 
 type Props = {};
 
 const ProductPage = (props: Props) => {
-  const [seletedSort, setSeletedSort] = useState<string>("");
-  const [filterPriceGte, setFilterPriceGte] = useState<string>("");
-  const [filterPriceLte, setFilterPriceLte] = useState<string>("");
+  const { filterPriceGte, filterPriceLte } = useSelector(
+    (state: RootState) => state.product
+  );
   const [searchParams] = useSearchParams();
   const { category } = useParams();
-  const name = searchParams.get("name")!;
-  const sort = searchParams.get("sort")!;
-  const price_filter_gte = searchParams.get("price_filter_gte")!;
-  const price_filter_lte = searchParams.get("price_filter_lte")!;
-  const page = searchParams.get("page")!;
+  const dispatch = useDispatch();
 
   const { data } = useGetProducts2Query({
-    name: name,
-    sort: seletedSort,
-    filterPriceGte: filterPriceGte,
-    filterPriceLte: filterPriceLte,
+    name: name(searchParams),
+    sort: sort(searchParams),
+    filterPriceGte: price_filter_gte(searchParams),
+    filterPriceLte: price_filter_lte(searchParams),
     category: category,
-    page: page,
-    limit: import.meta.env.VITE_APP_LIMIT_PRODUCT_PER_PAGE || 6,
+    page: page(searchParams),
+    limit: import.meta.env.VITE_APP_LIMIT_PRODUCT_PER_PAGE || 12,
   });
 
   const navigate = useNavigate();
 
   const handleChangeSort = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
-    setSeletedSort(value);
-    const sortUrl = `?sort=${value}${
-      name || price_filter_gte || price_filter_lte || page
-        ? `&name=${name === null ? "" : name}&price_filter_gte=${
-            price_filter_gte === null ? "" : price_filter_gte
-          }&price_filter_lte=${
-            price_filter_lte === null ? "" : price_filter_lte
-          }&page=${page === null ? "" : page}`
-        : ""
-    }`;
-
+    dispatch(setSeletedSort(value));
+    const sortUrl = handleSortUrl(
+      value,
+      name(searchParams),
+      price_filter_gte(searchParams),
+      price_filter_lte(searchParams),
+      page(searchParams)
+    );
     navigate(sortUrl);
   };
 
@@ -55,17 +65,15 @@ const ProductPage = (props: Props) => {
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     const value = e.target.value;
-    setFilterPriceGte(value);
+    dispatch(setFilterPriceGte(value));
 
-    const filterPriceGteUrl = `?price_filter_gte=${value}${
-      name || sort || price_filter_lte || page
-        ? `&name=${name === null ? "" : name}&sort=${
-            sort === null ? "" : sort
-          }&price_filter_lte=${
-            price_filter_lte === null ? "" : price_filter_lte
-          }&page=${page === null ? "" : page}`
-        : ""
-    }`;
+    const filterPriceGteUrl = handleFilterPriceGteUrl(
+      value,
+      name(searchParams),
+      sort(searchParams),
+      price_filter_lte(searchParams),
+      page(searchParams)
+    );
     navigate(filterPriceGteUrl);
   };
 
@@ -73,16 +81,14 @@ const ProductPage = (props: Props) => {
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     const value = e.target.value;
-    setFilterPriceLte(value);
-    const filterPriceLteUrl = `?price_filter_lte=${value}${
-      name || sort || price_filter_gte || page
-        ? `&name=${name === null ? "" : name}&sort=${
-            sort === null ? "" : sort
-          }&price_filter_gte=${
-            price_filter_gte === null ? "" : price_filter_gte
-          }&page=${page === null ? "" : page}`
-        : ""
-    }`;
+    dispatch(setFilterPriceLte(value));
+    const filterPriceLteUrl = handleFilterPriceLteUrl(
+      value,
+      name(searchParams),
+      sort(searchParams),
+      price_filter_gte(searchParams),
+      page(searchParams)
+    );
     navigate(filterPriceLteUrl);
   };
 
@@ -201,10 +207,10 @@ const ProductPage = (props: Props) => {
             </div>
 
             <Pagination
-              name={name}
-              sort={sort}
-              price_filter_gte={price_filter_gte}
-              price_filter_lte={price_filter_lte}
+              name={name(searchParams)}
+              sort={sort(searchParams)}
+              price_filter_gte={price_filter_gte(searchParams)}
+              price_filter_lte={price_filter_lte(searchParams)}
               totalCount={data?.totalProduct as number}
             />
           </div>

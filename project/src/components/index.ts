@@ -14,6 +14,9 @@ import UserFeaturedProducts from "./user/UserFeaturedProducts";
 import UserItem from "./user/UserItem";
 import UserFeaturedBanner from "./user/UserFeaturedBanner";
 import UserNewArrival from "./user/UserNewArrival";
+import AdminPagination from "./admin/AdminPagination";
+import AdminProductItem from "./admin/AdminProductItem";
+import AdminManageHeader from "./admin/AdminManageHeader";
 
 export {
   AdminHeader,
@@ -32,4 +35,7 @@ export {
   UserFeaturedBanner,
   UserNewArrival,
   AdminSideBar,
+  AdminPagination,
+  AdminProductItem,
+  AdminManageHeader,
 };
