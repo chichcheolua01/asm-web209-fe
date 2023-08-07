@@ -31,8 +31,30 @@ const CreateProduct = (props: Props) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    // try {
+    //   await addProduct(formValue);
+    //   if (addProductResult.data && addProductResult.status === "fulfilled") {
+    //     toast.success("Add product success");
+    //   } else if (addProductResult.status === "rejected") {
+    //     toast.error("Add new failed product");
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    // }
+
+    const formData = new FormData();
+    formData.append("name", formValue.name);
+    formData.append("categoryId", formValue.categoryId as string);
+    formData.append("description", formValue.description);
+    formData.append("price", String(formValue.price));
+    formData.append("thumb", formValue.thumb);
+
+    for (let i = 0; i < formValue.images.length; i++) {
+      formData.append("images", formValue.images[i]);
+    }
+
     try {
-      await addProduct(formValue);
+      await addProduct(formData);
       if (addProductResult.data && addProductResult.status === "fulfilled") {
         toast.success("Add product success");
       } else if (addProductResult.status === "rejected") {
@@ -75,6 +97,7 @@ const CreateProduct = (props: Props) => {
                   setformValue((prev) => ({ ...prev, name: e.target.value }))
                 }
               />
+
               {addProductResult.error &&
                 "data" in addProductResult.error &&
                 (addProductResult.error as ErrorResponse).data.message.name && (
@@ -89,21 +112,26 @@ const CreateProduct = (props: Props) => {
 
             <div className="w-full">
               <label
-                htmlFor="thumb"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                htmlFor="thumb"
               >
-                Thumb
+                Thumb / Upload file
               </label>
               <input
-                type="text"
+                className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                 id="thumb"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                type="file"
                 placeholder="Product thumb"
-                value={formValue.thumb}
+                // value={formValue.thumb as string}
+                accept="image/*"
                 onChange={(e) =>
-                  setformValue((prev) => ({ ...prev, thumb: e.target.value }))
+                  setformValue((prev) => ({
+                    ...prev,
+                    thumb: e.target?.files![0] || "",
+                  }))
                 }
               />
+
               {addProductResult.error &&
                 "data" in addProductResult.error &&
                 (addProductResult.error as ErrorResponse).data.message
@@ -122,18 +150,18 @@ const CreateProduct = (props: Props) => {
                 htmlFor="price"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
-                Images
+                Images / Upload multiple files
               </label>
               <input
-                type="text"
+                className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                 id="images"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                placeholder="Product Images"
-                value={formValue.images}
+                type="file"
+                multiple
+                accept="image/*"
                 onChange={(e) =>
                   setformValue((prev) => ({
                     ...prev,
-                    images: [e.target.value],
+                    images: Array.from(e.target?.files || []),
                   }))
                 }
               />
