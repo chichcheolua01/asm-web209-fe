@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {
+  AdminListSkeleton,
   AdminManageHeader,
   AdminPagination,
   AdminProductItem,
@@ -29,7 +30,7 @@ const ProductManagePage = (props: Props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const { data } = useGetProducts2Query({
+  const { data, isLoading, isFetching } = useGetProducts2Query({
     name: name(searchParams),
     sort: sort(searchParams),
     page: page(searchParams),
@@ -88,35 +89,38 @@ const ProductManagePage = (props: Props) => {
               #
             </th>
             <th scope="col" className="px-6 py-3">
-              Tên sản phẩm
+              Product name
             </th>
             <th scope="col" className="px-6 py-3">
-              Ảnh
+              Image
             </th>
             <th scope="col" className="px-6 py-3">
-              Giá
+              Price
             </th>
             <th scope="col" className="px-6 py-3">
-              Mô tả
+              Description
             </th>
             <th scope="col" className="px-6 py-3">
-              Danh mục
+              Category
             </th>
             <th scope="col" className="px-6 py-3">
-              Thao tác
+              Actions
             </th>
           </tr>
         </thead>
         <tbody>
-          {data?.products.map((product: IProduct, index: number) => (
-            <AdminProductItem
-              key={product._id}
-              product={product}
-              index={index + 1}
-              handleDeleteProduct={handleDeleteProduct}
-              startEdit={startEdit}
-            />
-          ))}
+          {isFetching && <AdminListSkeleton />}
+
+          {!isFetching &&
+            data?.products.map((product: IProduct, index: number) => (
+              <AdminProductItem
+                key={product._id}
+                product={product}
+                index={index + 1}
+                handleDeleteProduct={handleDeleteProduct}
+                startEdit={startEdit}
+              />
+            ))}
         </tbody>
       </table>
 

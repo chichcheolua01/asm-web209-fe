@@ -41,7 +41,7 @@ const AdminManageHeader = (props: AdminManageHeaderProps) => {
             <input
               type="text"
               id="simple-search"
-              placeholder="Tìm kiếm"
+              placeholder="Search"
               name="searchInput"
               className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
             />
@@ -53,11 +53,11 @@ const AdminManageHeader = (props: AdminManageHeaderProps) => {
         className="block w-[200px] p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 cursor-pointer"
         onChange={handleChangeSort}
       >
-        <option>Sắp xếp theo</option>
-        <option value="name">Theo bảng chữ cái, A-Z</option>
-        <option value="-name">Theo thứ tự bảng chữ cái, Z-A</option>
-        <option value="price">Giá, thấp đến cao</option>
-        <option value="-price">Giá từ cao đến thấp</option>
+        <option value="">Sort by</option>
+        <option value="name">Alphabetically, A-Z</option>
+        <option value="-name">Alphabetically, Z-A</option>
+        <option value="price">Price, low to high</option>
+        <option value="-price">Price from high to low</option>
       </select>
     </div>
   );

@@ -36,7 +36,7 @@ const ProductPage = (props: Props) => {
   const { category } = useParams();
   const dispatch = useDispatch();
 
-  const { data } = useGetProducts2Query({
+  const { data, isLoading, isFetching } = useGetProducts2Query({
     name: name(searchParams),
     sort: sort(searchParams),
     filterPriceGte: price_filter_gte(searchParams),
@@ -98,12 +98,12 @@ const ProductPage = (props: Props) => {
         <div className="px-[170px]">
           <div>
             <div className="text-[#151515] text-lg font-semibold uppercase mb-[10px]">
-              SẢN PHẨM
+              PRODUCTS
             </div>
             <div className="flex items-center text-sm text-[#1c1d1d]">
-              <span>Trang chủ</span>
+              <span>Home page</span>
               <BiChevronRight size={18} />
-              <span>Sản phẩm</span>
+              <span>Products</span>
             </div>
           </div>
         </div>
@@ -121,13 +121,13 @@ const ProductPage = (props: Props) => {
             <div>
               <div className="flex items-center py-[10px] gap-x-2 px-5 bg-main-200 text-white text-base">
                 <AiOutlineUnorderedList size={16} />
-                <span className="uppercase font-semibold">MUA SẮM THEO</span>
+                <span className="uppercase font-semibold">SHOP BY</span>
               </div>
 
               <div className="border border-solid border-[#ccc]">
                 <div className="py-[15px] px-[20px]">
                   <div className="text-main-500 text-[17px] font-semibold mb-[10px]">
-                    Sắp xếp theo
+                    Sort by
                   </div>
                   <select
                     name=""
@@ -135,12 +135,12 @@ const ProductPage = (props: Props) => {
                     className="border border-solid border-[rgba(26,27,24,.75)] pl-[15px] pr-5 w-full text-xs bg-[#f6f6f6] text-[#1c1d1d] py-[10px]"
                     onChange={handleChangeSort}
                   >
-                    <option value="">Sản phẩm nổi bật</option>
-                    <option value="">Bán chạy nhất</option>
-                    <option value="name">Theo bảng chữ cái, A-Z</option>
-                    <option value="-name">Theo bảng chữ cái, Z-A</option>
-                    <option value="price">Giá tăng dần</option>
-                    <option value="-price">Giá giảm dần</option>
+                    <option value="">Featured products</option>
+                    <option value="">Best seller</option>
+                    <option value="name">Alphabetically, A-Z</option>
+                    <option value="-name">Alphabetically, Z-A</option>
+                    <option value="price">Prices go up</option>
+                    <option value="-price">Prices go down</option>
                   </select>
                 </div>
 
@@ -152,8 +152,9 @@ const ProductPage = (props: Props) => {
                   <div className="border border-solid border-[rgba(26,27,24,0.2)] w-full">
                     <div className="border-b border-solid border-[rgba(26,27,24,0.2)]">
                       <div className="px-[10px] py-[5px] text-main-500 text-sm">
-                        Giá cao nhất là 46.893.977,41 VND. Giá trị đầu vào mặc
-                        định là VND<span className="underline">Reset</span>
+                        The highest price is 46,893,977.41 VND. Default input
+                        value fixed as VND
+                        <span className="underline">Reset</span>
                       </div>
                     </div>
 
@@ -164,7 +165,7 @@ const ProductPage = (props: Props) => {
                         </label>
                         <input
                           type="number"
-                          placeholder="Từ"
+                          placeholder="From"
                           className="w-full bg-[#f6f6f6] pl-[10px] border-none"
                           id="gte-input"
                           value={filterPriceGte}
@@ -178,7 +179,7 @@ const ProductPage = (props: Props) => {
                         </label>
                         <input
                           type="number"
-                          placeholder="Đến"
+                          placeholder="To"
                           className="w-full bg-[#f6f6f6] pl-[10px] border-none"
                           id="lte-input"
                           value={filterPriceLte}

@@ -17,6 +17,7 @@ import UserNewArrival from "./user/UserNewArrival";
 import AdminPagination from "./admin/AdminPagination";
 import AdminProductItem from "./admin/AdminProductItem";
 import AdminManageHeader from "./admin/AdminManageHeader";
+import AdminListSkeleton from "./admin/AdminListSkeleton";
 
 export {
   AdminHeader,
@@ -38,4 +39,5 @@ export {
   AdminPagination,
   AdminProductItem,
   AdminManageHeader,
+  AdminListSkeleton,
 };
