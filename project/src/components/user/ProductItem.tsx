@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import icons from "../../utils/icons";
 import { Link } from "react-router-dom";
 import { IProduct } from "../../interfaces/product.interface";
+import { formatCurrency } from "../../utils/fn";
 
 const { AiTwotoneStar, LiaBarsSolid, FaEye, BsFillHeartFill } = icons;
 
@@ -14,12 +15,6 @@ type Props = {};
 const ProductItem = (props: ProductItemProps) => {
   const [isHover, setIsHover] = useState<boolean>(false);
   const { product } = props;
-  function formatCurrency(amount: number | undefined) {
-    return ((amount as number) / 100).toLocaleString("vi-VN", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
-  }
 
   const formattedProductDesc = product.description.replace(/\n/g, "<br/>");
   return (

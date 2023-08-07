@@ -33,7 +33,9 @@ const UserHeader = (props: Props) => {
               </p>
             </div>
             <div className="flex justify-between items-center space-x-[20px] text-[12px]">
-              <p className="font-light">Sign In or Create Account</p>
+              <a href="/signin">
+                <p className="font-light">Sign In or Create Account</p>
+              </a>
               <div className="flex">
                 <div className="border border-l-1 border-y-0 border-r-0 px-[5px]">
                   <BiLogoFacebook />
