@@ -10,6 +10,7 @@ import { IProduct } from "../../../../interfaces/product.interface";
 import { useGetCategoriesQuery } from "../../../user/category.services";
 import { ICategory } from "../../../../interfaces/category.interface";
 import { toast } from "react-toastify";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
 
 type Props = {};
 
@@ -46,6 +47,7 @@ const UpdateProduct = (props: Props) => {
       category._id !== (productData?.productData.categoryId as ICategory)?._id
   );
   const [updateProduct, updateProductResult] = useUpdateProductMutation();
+  const [selectedImages, setSelectedImages] = useState<File[]>([]);
 
   useEffect(() => {
     if (productData) {
@@ -70,21 +72,24 @@ const UpdateProduct = (props: Props) => {
     formData.append("price", String(formValue.price));
     formData.append("thumb", formValue.thumb);
 
-    for (let i = 0; i < formValue.images.length; i++) {
-      formData.append("images", formValue.images[i]);
+    if (selectedImages.length > 0) {
+      for (let i = 0; i < selectedImages.length; i++) {
+        formData.append(`images`, selectedImages[i]);
+      }
+    } else {
+      for (let i = 0; i < formValue.images.length; i++) {
+        formData.append(`images[${i}]`, formValue.images[i]);
+      }
     }
 
     try {
-      await updateProduct({
+      const result = await updateProduct({
         body: formData,
         id: productId ? productId : (id as string),
       });
-      if (
-        updateProductResult.data &&
-        updateProductResult.status === "fulfilled"
-      ) {
+      if ((result as FetchBaseQueryError).data) {
         toast.success("Update product success");
-      } else if (updateProductResult.status === "rejected") {
+      } else {
         toast.error("Update failed product");
       }
       refetchProduct();
@@ -193,12 +198,16 @@ const UpdateProduct = (props: Props) => {
                 id="images"
                 type="file"
                 multiple
-                accept="image/*"
+                // accept="image/*"
                 onChange={(e) =>
-                  setformValue((prev) => ({
-                    ...prev,
-                    images: Array.from(e.target?.files || []),
-                  }))
+                  setformValue((prev) => {
+                    const files = Array.from(e.target?.files || []);
+                    setSelectedImages(files);
+                    return {
+                      ...prev,
+                      images: files,
+                    };
+                  })
                 }
               />
 

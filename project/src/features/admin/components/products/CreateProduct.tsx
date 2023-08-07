@@ -4,6 +4,7 @@ import { IProduct } from "../../../../interfaces/product.interface";
 import { useAddProductMutation } from "../../../user/product.services";
 import { useGetCategoriesQuery } from "../../../user/category.services";
 import { toast } from "react-toastify";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
 
 type Props = {};
 
@@ -54,12 +55,13 @@ const CreateProduct = (props: Props) => {
     }
 
     try {
-      await addProduct(formData);
-      if (addProductResult.data && addProductResult.status === "fulfilled") {
+      const result = await addProduct(formData);
+      if ((result as FetchBaseQueryError).data) {
         toast.success("Add product success");
-      } else if (addProductResult.status === "rejected") {
+      } else {
         toast.error("Add new failed product");
       }
+      // setformValue(initialState);
     } catch (error) {
       console.log(error);
     }

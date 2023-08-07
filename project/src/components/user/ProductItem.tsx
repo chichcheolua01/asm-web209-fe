@@ -30,7 +30,7 @@ const ProductItem = (props: ProductItemProps) => {
     >
       <div className="mb-5 w-full h-[250px] flex-shrink-0">
         <img
-          src={product.thumb}
+          src={product.thumb as string}
           alt=""
           className="w-full h-full object-cover"
         />
@@ -57,8 +57,8 @@ const ProductItem = (props: ProductItemProps) => {
           isHover ? "opacity-1 visible" : "opacity-0 invisible"
         }`}
       >
-        <div className="w-full flex flex-col items-start justify-between pl-4 pr-1 p-[20px] mb-[10px] border-b border-[#ebebeb]">
-          <div className="mb-[6px] text-[15px] text-[#2b3743] leading-[18px] hover:text-main-200 line-clamp-4">
+        <div className="w-full flex items-center justify-between pl-4 pr-1 pb-[10px] mb-[10px] border-b border-[#ebebeb]">
+          <div className="`mb-[6px] text-base text-[#2b3743] leading-[18px] hover:text-main-200 line-clamp-4">
             <Link to={`/products/id/${product._id}`}>{product.name}</Link>
           </div>
           <div className="text-base text-right leading-[18px]">
@@ -69,7 +69,7 @@ const ProductItem = (props: ProductItemProps) => {
           <Link to={`/products/id/${product._id}`}>
             <div
               dangerouslySetInnerHTML={{ __html: formattedProductDesc }}
-              className="text-[13px] leading-[18px] text-main-500 mb-[15px] line-clamp-[12]"
+              className="text-[13px] leading-[18px] text-main-500 mb-[15px] line-clamp-[10]"
             ></div>
           </Link>
 

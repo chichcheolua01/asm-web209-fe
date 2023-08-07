@@ -118,4 +118,11 @@ export const generateRange = (start: number, end: number) => {
   return Array.from({ length }, (_, index) => start + index);
 };
 
+export const formatCurrency = (amount: number | undefined) => {
+  return ((amount as number) / 100).toLocaleString("vi-VN", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+};
+
 // start = 3, end = 6 ==> [3, 4, 5, 6]
