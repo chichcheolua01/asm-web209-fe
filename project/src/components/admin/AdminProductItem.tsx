@@ -21,7 +21,7 @@ const AdminProductItem = (props: AdminProductItemProps) => {
         <span className="line-clamp-4">{product.name}</span>
       </td>
       <td className="w-32 p-4">
-        <img src={product.thumb} alt="Apple Watch" />
+        <img src={product.thumb as string} alt="Apple Watch" />
       </td>
       <td className="px-6 py-4">{product.price.toLocaleString()}</td>
       <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">

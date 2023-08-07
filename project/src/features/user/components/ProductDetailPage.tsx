@@ -45,20 +45,20 @@ const ProductDetailPage = (props: Props) => {
               <div className="flex">
                 <div>
                   <div className="w-[75px] h-[75px] cursor-pointer pr-3">
-                    <img src={product?.images[0]} />
+                    <img src={product?.images[0] as string} />
                   </div>
                   <div className="w-[75px] h-[75px] cursor-pointer pr-3">
-                    <img src={product?.images[1]} />
+                    <img src={product?.images[1] as string} />
                   </div>
                   <div className="w-[75px] h-[75px] cursor-pointer pr-3">
-                    <img src={product?.images[2]} />
+                    <img src={product?.images[2] as string} />
                   </div>
                   <div className="w-[75px] h-[75px] cursor-pointer pr-3">
-                    <img src={product?.images[4]} />
+                    <img src={product?.images[4] as string} />
                   </div>
                 </div>
                 <div className="w-[460px] h-[460px] border border-solid border-[#eee] cursor-pointer">
-                  <img src={product?.images[0]} className="" />
+                  <img src={product?.images[0] as string} className="" />
                 </div>
               </div>
             </div>

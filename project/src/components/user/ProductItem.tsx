@@ -30,7 +30,7 @@ const ProductItem = (props: ProductItemProps) => {
     >
       <div className="mb-5 w-full h-[250px] flex-shrink-0">
         <img
-          src={product.thumb}
+          src={product.thumb as string}
           alt=""
           className="w-full h-full object-cover"
         />

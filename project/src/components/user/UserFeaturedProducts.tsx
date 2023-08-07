@@ -23,7 +23,7 @@ const UserFeaturedProducts = ({ products }: Props) => {
             <a href={`products/id/${item._id}`} key={index}>
               <div className="grid grid-cols-5 items-center p-[20px] space-x-[20px] border border-1">
                 <div>
-                  <img src={item.images[0]} alt="" />
+                  <img src={item.images[0] as string} alt="" />
                 </div>
                 <div className="col-span-4">
                   <p className="text-[14.4px] text-[#2B3747] font-extralight">

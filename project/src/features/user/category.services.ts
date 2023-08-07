@@ -7,7 +7,7 @@ interface IGetCategoriesResponse {
 }
 interface IGetOneCateResponse {
   success: boolean;
-  cateData: ICategory;
+  productCategory: ICategory;
 }
 
 export const categoryApi = createApi({
@@ -41,7 +41,7 @@ export const categoryApi = createApi({
       query: (body) => ({
         url: "categories",
         method: "POST",
-        body
+        body,
       }),
       // Sau khi tạo thành công, cần cập nhật lại danh sách danh mục để nhận thông tin mới nhất
       invalidatesTags: (result, error, body) =>
@@ -49,7 +49,7 @@ export const categoryApi = createApi({
     }),
 
     // Thêm API endpoint để cập nhật thông tin của danh mục
-    updateCategory: build.mutation<ICategory, { id: string, body: ICategory }>({
+    updateCategory: build.mutation<ICategory, { id: string; body: ICategory }>({
       query: (data) => ({
         url: `categories/${data.id}`,
         method: "PUT",
@@ -71,4 +71,10 @@ export const categoryApi = createApi({
   }),
 });
 
-export const { useGetCategoriesQuery, useGetCategoryQuery, useCreateCategoryMutation, useUpdateCategoryMutation, useDeleteCategoryMutation } = categoryApi;
+export const {
+  useGetCategoriesQuery,
+  useGetCategoryQuery,
+  useCreateCategoryMutation,
+  useUpdateCategoryMutation,
+  useDeleteCategoryMutation,
+} = categoryApi;
