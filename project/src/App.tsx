@@ -30,6 +30,11 @@ function App() {
   function handleLoadEvent() {
     // Call dispatch(setLocalCart()) here
     dispatch(setLocalCart());
+    const cart = localStorage.getItem("cart");
+    if (cart == "null") {
+      const temp: never[] = [];
+      localStorage.setItem("cart", JSON.stringify(temp));
+    }
   }
   // Add the event listener with the handleLoadEvent function as the callback
   window.addEventListener("load", handleLoadEvent);
@@ -47,17 +52,6 @@ function App() {
             <Route path="category/:category" element={<ProductPage />} />
             <Route path="signin" element={<SigninPage />} />
             <Route path="signup" element={<SignupPage />} />
-            <Route path="" element={<UserLayout />}>
-              <Route index element={<HomePage />} />
-              <Route path="products">
-                <Route index element={<ProductPage />} />
-                <Route path="id/:id" element={<ProductDetailPage />} />
-              </Route>
-              <Route path="category/:category" element={<ProductPage />} />
-              <Route path="signin" element={<SigninPage />} />
-              <Route path="signup" element={<SignupPage />} />
-              <Route path="cart" element={<CartPage />} />
-            </Route>
           </Route>
 
           <Route path="admin" element={<AdminLayout />}>

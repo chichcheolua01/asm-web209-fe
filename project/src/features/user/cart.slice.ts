@@ -1,9 +1,15 @@
 import { createSlice, current } from "@reduxjs/toolkit";
 import { IProduct } from "../../interfaces/product.interface";
+import { useSigninCartMutation } from "./cart.services";
+
+export interface ICartProduct {
+  _id: string;
+  quantity: number;
+}
 
 export interface ICartState {
   isDisplay: boolean;
-  cartProducts: IProduct[];
+  cartProducts: ICartProduct[];
 }
 
 export const initialState: ICartState = {
@@ -22,12 +28,13 @@ const cartSlice = createSlice({
   reducers: {
     displayCart: (state) => {
       state.isDisplay = !state.isDisplay;
-      // const localCart = localStorage.getItem("cart");
-      // state.cartProducts = JSON.parse(localCart!);
     },
     setLocalCart: (state) => {
       const localCart = localStorage.getItem("cart");
       state.cartProducts = JSON.parse(localCart!);
+    },
+    setCartAfterSignin: (state) => {
+      watchState(state);
     },
     addToCart: (state, action) => {
       const existedIndex = state.cartProducts.findIndex(
@@ -37,7 +44,7 @@ const cartSlice = createSlice({
         state.cartProducts.push(action.payload);
         watchState(state);
       } else {
-        state.cartProducts[existedIndex].quantity += 1;
+        state.cartProducts[existedIndex].quantity! += 1;
         watchState(state);
       }
     },
@@ -45,8 +52,8 @@ const cartSlice = createSlice({
       const existedIndex = state.cartProducts.findIndex(
         (item) => item._id === action.payload._id
       );
-      if (state.cartProducts[existedIndex].quantity > 1) {
-        state.cartProducts[existedIndex].quantity -= 1;
+      if (state.cartProducts[existedIndex].quantity! > 1) {
+        state.cartProducts[existedIndex].quantity! -= 1;
         watchState(state);
       } else {
         if (window.confirm("Xoa that ha?") == true) {
@@ -58,7 +65,12 @@ const cartSlice = createSlice({
   },
 });
 
-export const { displayCart, addToCart, removeProductFromCart, setLocalCart } =
-  cartSlice.actions;
+export const {
+  displayCart,
+  addToCart,
+  removeProductFromCart,
+  setLocalCart,
+  setCartAfterSignin,
+} = cartSlice.actions;
 export const cartReducer = cartSlice.reducer;
 export default cartReducer;

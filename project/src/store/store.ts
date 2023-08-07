@@ -7,6 +7,7 @@ import productReducer from "../features/user/product.slice";
 import { categoryApi } from "../features/user/category.services";
 import cartReducer from "../features/user/cart.slice";
 import { userApi } from "../features/user/user.services";
+import { cartApi } from "../features/user/cart.services";
 
 export const store = configureStore({
   reducer: {
@@ -15,17 +16,17 @@ export const store = configureStore({
 
     category: categoryReducer,
     [categoryApi.reducerPath]: categoryApi.reducer,
-
     cart: cartReducer,
-
     users: userReducer,
     [userApi.reducerPath]: userApi.reducer,
+    [cartApi.reducerPath]: cartApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
       .concat(productApi.middleware)
       .concat(categoryApi.middleware)
-      .concat(userApi.middleware),
+      .concat(userApi.middleware)
+      .concat(cartApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

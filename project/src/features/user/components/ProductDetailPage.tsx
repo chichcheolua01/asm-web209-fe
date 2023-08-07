@@ -108,7 +108,7 @@ const ProductDetailPage = (props: Props) => {
               <button
                 className="bg-digital-400 bg-red-500 hover:bg-red-700 text-white mb-5 py-2 px-4 rounded"
                 onClick={() => {
-                  dispatch(addToCart(product));
+                  dispatch(addToCart({ _id: product?._id, quantity: 1 }));
                 }}
               >
                 Thêm vào giỏ hàng
@@ -148,7 +148,6 @@ const ProductDetailPage = (props: Props) => {
                 PHẢN HỒI KHÁCH HÀNG
               </div>
             </div>
-
             <div className="p-5 border border-solid ">
               <p>Đây là mô tả sản phẩm</p>
             </div>
