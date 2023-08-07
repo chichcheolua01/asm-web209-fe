@@ -1,10 +1,44 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { ISignin, useSigninMutation } from "../user.services";
 import { useSigninCartMutation } from "../cart.services";
 import { ICartProduct, setCartAfterSignin } from "../cart.slice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 type Props = {};
 
@@ -125,7 +159,7 @@ const SigninPage = (props: Props) => {
           <div className="flex items-center justify-between">
             <p className="text-sm text-gray-500">
               No account?
-              <a className="underline">Sign up</a>
+              <Link to={'/signup'}><a className="underline">Sign up</a></Link>
             </p>
             <button
               type="submit"

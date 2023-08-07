@@ -4,6 +4,12 @@ export interface ISignin {
   name: string;
   password: string;
 }
+export interface ISignup {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
 
 export const userApi = createApi({
   reducerPath: "userApi",
@@ -20,7 +26,16 @@ export const userApi = createApi({
         };
       },
     }),
+    signup: build.mutation<void, ISignup>({
+      query: (body) => {
+        return {
+          url: "users/register",
+          method: "POST",
+          body,
+        };
+      },
+    }),
   }),
 });
 
-export const { useSigninMutation } = userApi;
+export const { useSigninMutation, useSignupMutation } = userApi;

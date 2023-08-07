@@ -20,15 +20,12 @@ export const handleSortUrl = (
   price_filter_lte: string | null,
   page: string | number | null
 ) => {
-  const sortUrl = `?sort=${value}${
-    name || price_filter_gte || price_filter_lte || page
-      ? `&name=${name === null ? "" : name}&price_filter_gte=${
-          price_filter_gte === null ? "" : price_filter_gte
-        }&price_filter_lte=${
-          price_filter_lte === null ? "" : price_filter_lte
-        }&page=${page === null ? "" : page}`
+  const sortUrl = `?sort=${value}${name || price_filter_gte || price_filter_lte || page
+      ? `&name=${name === null ? "" : name}&price_filter_gte=${price_filter_gte === null ? "" : price_filter_gte
+      }&price_filter_lte=${price_filter_lte === null ? "" : price_filter_lte
+      }&page=${page === null ? "" : page}`
       : ""
-  }`;
+    }`;
 
   return sortUrl;
 };
@@ -40,15 +37,12 @@ export const handleNameUrl = (
   price_filter_lte: string | null,
   page: string | number | null
 ) => {
-  const nameUrl = `?name=${value}${
-    sort || price_filter_gte || price_filter_lte || page
-      ? `&sort=${sort === null ? "" : sort}&price_filter_gte=${
-          price_filter_gte === null ? "" : price_filter_gte
-        }&price_filter_lte=${
-          price_filter_lte === null ? "" : price_filter_lte
-        }&page=${page === null ? "" : page}`
+  const nameUrl = `?name=${value}${sort || price_filter_gte || price_filter_lte || page
+      ? `&sort=${sort === null ? "" : sort}&price_filter_gte=${price_filter_gte === null ? "" : price_filter_gte
+      }&price_filter_lte=${price_filter_lte === null ? "" : price_filter_lte
+      }&page=${page === null ? "" : page}`
       : ""
-  }`;
+    }`;
 
   return nameUrl;
 };
@@ -60,15 +54,12 @@ export const handleFilterPriceGteUrl = (
   price_filter_lte: string | null,
   page: string | number | null
 ) => {
-  const filterPriceGteUrl = `?price_filter_gte=${value}${
-    name || price_filter_lte || sort || page
-      ? `&name=${name === null ? "" : name}&sort=${
-          sort === null ? "" : sort
-        }&price_filter_lte=${
-          price_filter_lte === null ? "" : price_filter_lte
-        }&page=${page === null ? "" : page}`
+  const filterPriceGteUrl = `?price_filter_gte=${value}${name || price_filter_lte || sort || page
+      ? `&name=${name === null ? "" : name}&sort=${sort === null ? "" : sort
+      }&price_filter_lte=${price_filter_lte === null ? "" : price_filter_lte
+      }&page=${page === null ? "" : page}`
       : ""
-  }`;
+    }`;
 
   return filterPriceGteUrl;
 };
@@ -80,15 +71,12 @@ export const handleFilterPriceLteUrl = (
   price_filter_gte: string | null,
   page: string | number | null
 ) => {
-  const filterPriceLteUrl = `?price_filter_lte=${value}${
-    name || price_filter_gte || sort || page
-      ? `&name=${name === null ? "" : name}&sort=${
-          sort === null ? "" : sort
-        }&price_filter_gte=${
-          price_filter_gte === null ? "" : price_filter_gte
-        }&page=${page === null ? "" : page}`
+  const filterPriceLteUrl = `?price_filter_lte=${value}${name || price_filter_gte || sort || page
+      ? `&name=${name === null ? "" : name}&sort=${sort === null ? "" : sort
+      }&price_filter_gte=${price_filter_gte === null ? "" : price_filter_gte
+      }&page=${page === null ? "" : page}`
       : ""
-  }`;
+    }`;
 
   return filterPriceLteUrl;
 };
@@ -100,15 +88,12 @@ export const handlePageUrl = (
   price_filter_gte: string | null,
   price_filter_lte: string | null
 ) => {
-  const pageUrl = `?page=${value}${
-    name || price_filter_gte || sort || price_filter_lte
-      ? `&name=${name === null ? "" : name}&sort=${
-          sort === null ? "" : sort
-        }&price_filter_gte=${
-          price_filter_gte === null ? "" : price_filter_gte
-        }&price_filter_lte=${price_filter_lte === null ? "" : price_filter_lte}`
+  const pageUrl = `?page=${value}${name || price_filter_gte || sort || price_filter_lte
+      ? `&name=${name === null ? "" : name}&sort=${sort === null ? "" : sort
+      }&price_filter_gte=${price_filter_gte === null ? "" : price_filter_gte
+      }&price_filter_lte=${price_filter_lte === null ? "" : price_filter_lte}`
       : ""
-  }`;
+    }`;
 
   return pageUrl;
 };
@@ -118,12 +103,12 @@ export const generateRange = (start: number, end: number) => {
   return Array.from({ length }, (_, index) => start + index);
 };
 
-export const formatCurrency = (amount: number | undefined) => {
-  return ((amount as number) / 100).toLocaleString("vi-VN", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  });
-};
+// export const formatCurrency = (amount: number | undefined) => {
+//   return ((amount as number) / 100).toLocaleString("vi-VN", {
+//     minimumFractionDigits: 2,
+//     maximumFractionDigits: 2,
+//   });
+// };
 
 // start = 3, end = 6 ==> [3, 4, 5, 6]
 export function formatCurrency(amount: number | undefined) {

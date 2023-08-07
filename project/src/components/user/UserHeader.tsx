@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   BiLogoFacebook,
   BiLogoTwitter,
@@ -34,7 +35,7 @@ const UserHeader = (props: Props) => {
             </div>
             <div className="flex justify-between items-center space-x-[20px] text-[12px]">
               <a href="/signin">
-                <p className="font-light">Sign In or Create Account</p>
+                <p className="font-light"> <Link to={'/signin'}><a className="">Sign in</a></Link> or  <Link to={'/signup'}><a className="">Sign up</a></Link></p>
               </a>
               <div className="flex">
                 <div className="border border-l-1 border-y-0 border-r-0 px-[5px]">
