@@ -7,7 +7,7 @@ interface IGetCategoriesResponse {
 }
 interface IGetOneCateResponse {
   success: boolean;
-  cateData: ICategory;
+  productCategory: ICategory;
 }
 
 export const categoryApi = createApi({
@@ -44,7 +44,7 @@ export const categoryApi = createApi({
         body
       }),
       // Sau khi tạo thành công, cần cập nhật lại danh sách danh mục để nhận thông tin mới nhất
-      invalidatesTags: (result, error, body) =>
+      invalidatesTags: (error) =>
         error ? [] : [{ type: "Categories", id: "LIST" }],
     }),
 
@@ -53,7 +53,7 @@ export const categoryApi = createApi({
       query: (data) => ({
         url: `categories/${data.id}`,
         method: "PUT",
-        body: data,
+        body: data.body,
       }),
       // Sau khi cập nhật thành công, cần cập nhật lại danh sách danh mục để nhận thông tin mới nhất
       invalidatesTags: [{ type: "Categories", id: "LIST" }],

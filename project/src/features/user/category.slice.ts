@@ -1,6 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const initialState = [];
+interface ICateState {
+  categoryId: string;
+}
+export const initialState: ICateState = {
+  categoryId: "",
+}
 
 const categorySlice = createSlice({
   name: "category",
@@ -8,6 +13,6 @@ const categorySlice = createSlice({
   reducers: {},
 });
 
-export const {} = categorySlice.actions;
+export const { } = categorySlice.actions;
 export const categoryReducer = categorySlice.reducer;
 export default categoryReducer;
