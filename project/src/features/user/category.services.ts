@@ -5,6 +5,10 @@ interface IGetCategoriesResponse {
   success: boolean;
   categories: ICategory[];
 }
+interface IGetOneCateResponse {
+  success: boolean;
+  productCategory: ICategory;
+}
 
 export const categoryApi = createApi({
   reducerPath: "categoryApi",
@@ -29,7 +33,42 @@ export const categoryApi = createApi({
         return [{ type: "Categories", id: "LIST" }];
       },
     }),
+    getCategory: build.query<IGetOneCateResponse, string>({
+      query: (id) => `categories/${id}`,
+    }),
+    // Thêm API endpoint để tạo danh mục mới
+    createCategory: build.mutation<ICategory, Omit<ICategory, "_id">>({
+      query: (body) => ({
+        url: "categories",
+        method: "POST",
+        body
+      }),
+      // Sau khi tạo thành công, cần cập nhật lại danh sách danh mục để nhận thông tin mới nhất
+      invalidatesTags: (error) =>
+        error ? [] : [{ type: "Categories", id: "LIST" }],
+    }),
+
+    // Thêm API endpoint để cập nhật thông tin của danh mục
+    updateCategory: build.mutation<ICategory, { id: string, body: ICategory }>({
+      query: (data) => ({
+        url: `categories/${data.id}`,
+        method: "PUT",
+        body: data.body,
+      }),
+      // Sau khi cập nhật thành công, cần cập nhật lại danh sách danh mục để nhận thông tin mới nhất
+      invalidatesTags: [{ type: "Categories", id: "LIST" }],
+    }),
+
+    // Thêm API endpoint để xóa một danh mục
+    deleteCategory: build.mutation<ICategory[], ICategory>({
+      query: (categoryId) => ({
+        url: `categories/${categoryId}`,
+        method: "DELETE",
+      }),
+      // Sau khi xóa thành công, cần cập nhật lại danh sách danh mục để nhận thông tin mới nhất
+      invalidatesTags: [{ type: "Categories", id: "LIST" }],
+    }),
   }),
 });
 
-export const { useGetCategoriesQuery } = categoryApi;
+export const { useGetCategoriesQuery, useGetCategoryQuery, useCreateCategoryMutation, useUpdateCategoryMutation, useDeleteCategoryMutation } = categoryApi;

@@ -65,7 +65,7 @@ function App() {
             <Route path="categories">
               <Route index element={<CategoryManagePage />} />
               <Route path="create" element={<CreateCategory />} />
-              <Route path="update" element={<UpdateCategory />} />
+              <Route path="update/:id" element={<UpdateCategory />} />
             </Route>
             <Route path="users">
               <Route index element={<UserManagePage />} />
