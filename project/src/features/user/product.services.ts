@@ -108,7 +108,7 @@ export const productApi = createApi({
     getProduct: build.query<IGetOneApiResponse, string>({
       query: (id) => `products/id/${id}`,
     }),
-    addProduct: build.mutation<IProduct, Omit<IProduct, "_id">>({
+    addProduct: build.mutation<IProduct, Omit<IProduct, "_id"> | FormData>({
       query(body) {
         return {
           url: "products",
@@ -119,7 +119,10 @@ export const productApi = createApi({
       invalidatesTags: (result, error, body) =>
         error ? [] : [{ type: "Products", id: "LIST" }],
     }),
-    updateProduct: build.mutation<IProduct, { id: string; body: IProduct }>({
+    updateProduct: build.mutation<
+      IProduct,
+      { id: string; body: IProduct | FormData }
+    >({
       query(data) {
         return {
           url: `products/${data.id}`,

@@ -16,7 +16,7 @@ type Props = {};
 const initialState: Omit<IProduct, "_id"> = {
   name: "",
   thumb: "",
-  images: "",
+  images: [],
   categoryId: "",
   description: "",
   price: 0,
@@ -62,10 +62,22 @@ const UpdateProduct = (props: Props) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("name", formValue.name);
+    formData.append("categoryId", formValue.categoryId as string);
+    formData.append("description", formValue.description);
+    formData.append("price", String(formValue.price));
+    formData.append("thumb", formValue.thumb);
+
+    for (let i = 0; i < formValue.images.length; i++) {
+      formData.append("images", formValue.images[i]);
+    }
+
     try {
       await updateProduct({
-        body: formValue as IProduct,
-        id: productId,
+        body: formData,
+        id: productId ? productId : (id as string),
       });
       if (
         updateProductResult.data &&
@@ -129,19 +141,22 @@ const UpdateProduct = (props: Props) => {
 
             <div className="w-full">
               <label
-                htmlFor="thumb"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                htmlFor="thumb"
               >
-                Thumb
+                Thumb / Upload file
               </label>
               <input
-                type="text"
+                className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                 id="thumb"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                type="file"
                 placeholder="Product thumb"
-                value={formValue.thumb}
+                accept="image/*"
                 onChange={(e) =>
-                  setformValue((prev) => ({ ...prev, thumb: e.target.value }))
+                  setformValue((prev) => ({
+                    ...prev,
+                    thumb: e.target?.files![0] || "",
+                  }))
                 }
               />
 
@@ -159,7 +174,7 @@ const UpdateProduct = (props: Props) => {
 
               <div className="w-[150px] h-[150px] mt-4">
                 <img
-                  src={productData?.productData.thumb}
+                  src={productData?.productData.thumb as string}
                   alt=""
                   className="w-full h-full"
                 />
@@ -171,18 +186,18 @@ const UpdateProduct = (props: Props) => {
                 htmlFor="price"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
-                Images
+                Images / Upload multiple files
               </label>
               <input
-                type="text"
+                className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                 id="images"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                placeholder="Product Images"
-                value={formValue.images}
+                type="file"
+                multiple
+                accept="image/*"
                 onChange={(e) =>
                   setformValue((prev) => ({
                     ...prev,
-                    images: [e.target.value],
+                    images: Array.from(e.target?.files || []),
                   }))
                 }
               />
