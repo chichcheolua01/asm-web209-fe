@@ -10,6 +10,16 @@ export interface ISignup {
   password: string;
   confirmPassword: string;
 }
+export interface IUser {
+  id: number;
+  name: string;
+  email: string;
+}
+interface IGetUsersResponse {
+  success: boolean;
+  users: IUser[];
+}
+
 
 export const userApi = createApi({
   reducerPath: "userApi",
@@ -35,7 +45,14 @@ export const userApi = createApi({
         };
       },
     }),
+    getUsers: build.query<IGetUsersResponse, void>({
+      query: () => "users",
+    }),
+    getUser: build.query<IUser, number>({
+      query: (userId) => `users/${userId}`,
+    }),
+
   }),
 });
 
-export const { useSigninMutation, useSignupMutation } = userApi;
+export const { useSigninMutation, useSignupMutation, useGetUserQuery, useGetUsersQuery } = userApi;
