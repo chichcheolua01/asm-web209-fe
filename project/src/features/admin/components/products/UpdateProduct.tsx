@@ -56,7 +56,7 @@ const UpdateProduct = (props: Props) => {
         thumb: productData.productData.thumb,
         images: productData.productData.images,
         price: productData.productData.price,
-        categoryId: (productData.productData.categoryId as ICategory)._id,
+        categoryId: productData.productData.categoryId as string,
         description: productData.productData.description,
       });
     }

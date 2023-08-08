@@ -1,37 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
@@ -39,6 +5,8 @@ import { ISignin, useSigninMutation } from "../user.services";
 import { useSigninCartMutation } from "../cart.services";
 import { ICartProduct, setCartAfterSignin } from "../cart.slice";
 import { Link, useNavigate } from "react-router-dom";
+import jwt_decode from "jwt-decode";
+import { setUser } from "../user.slice";
 
 type Props = {};
 
@@ -68,10 +36,17 @@ const SigninPage = (props: Props) => {
         console.log(data.userData.cart);
         localStorage.setItem("cart", JSON.stringify(data.userData.cart));
         dispatch(setCartAfterSignin());
+        dispatch(setUser({ token: data.accessToken, userData: data.userData }));
         if (cart !== null && cart.length !== 0) {
           signinCartMutation(cart);
         }
-        navigate("/");
+
+        const decoded: any = data.accessToken
+          ? jwt_decode(data.accessToken)
+          : {};
+        const { isAdmin } = decoded;
+        if (isAdmin) navigate("/admin");
+        else navigate("/");
       }
     } catch (error) {
       console.error(error);
@@ -159,7 +134,9 @@ const SigninPage = (props: Props) => {
           <div className="flex items-center justify-between">
             <p className="text-sm text-gray-500">
               No account?
-              <Link to={'/signup'}><a className="underline">Sign up</a></Link>
+              <Link to={"/signup"}>
+                <a className="underline">Sign up</a>
+              </Link>
             </p>
             <button
               type="submit"

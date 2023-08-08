@@ -17,7 +17,7 @@ export const store = configureStore({
     category: categoryReducer,
     [categoryApi.reducerPath]: categoryApi.reducer,
     cart: cartReducer,
-    users: userReducer,
+    user: userReducer,
     [userApi.reducerPath]: userApi.reducer,
     [cartApi.reducerPath]: cartApi.reducer,
   },
