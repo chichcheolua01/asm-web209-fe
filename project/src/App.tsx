@@ -52,6 +52,7 @@ function App() {
             <Route path="category/:category" element={<ProductPage />} />
             <Route path="signin" element={<SigninPage />} />
             <Route path="signup" element={<SignupPage />} />
+            <Route path="cart" element={<CartPage />} />
           </Route>
 
           <Route path="admin" element={<AdminLayout />}>
@@ -69,8 +70,8 @@ function App() {
             </Route>
             <Route path="users">
               <Route index element={<UserManagePage />} />
-              <Route path="create" element={<CreateUser />} />
-              <Route path="update" element={<UpdateUser />} />
+              {/* <Route path="create" element={<CreateUser />} /> */}
+              <Route path="update/:id" element={<UpdateUser />} />
             </Route>
           </Route>
         </Routes>

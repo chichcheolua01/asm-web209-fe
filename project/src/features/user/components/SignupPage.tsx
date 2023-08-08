@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { useSignupMutation } from "../user.services";
 import { ISignup } from "../user.services";
 import { Link } from "react-router-dom";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
 
 
 const SignupPage = () => {
-    const [mutate, { isLoading }] = useSignupMutation();
+    const [mutate, { isLoading, data }] = useSignupMutation();
     const [signupData, setSignupData] = useState<ISignup>({
         name: "",
         email: "",
@@ -63,18 +64,19 @@ const SignupPage = () => {
         } else {
             setConfirmPasswordValid("");
         }
-
         if (hasError) {
             return;
         }
 
-        mutate(signupData);
-
         try {
-            await mutate(signupData);
-            setSignupSuccess(true);
+            const response = await mutate(signupData);
+            if ((response as any).error) {
+                setEmailValid("Email already exists !");
+            } else {
+                setSignupSuccess(true);
+            }
         } catch (error) {
-
+            console.error("Error:", error);
         }
     };
 
@@ -103,7 +105,7 @@ const SignupPage = () => {
                             {emailValid && <p className="text-red-500 text-xs">{emailValid}</p>}
                         </div>
                         <div>
-                            <input type="text" name="password" id="password" className="bg-white-50 border border-white-300 text-white-900 sm:text-sm  focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-white-700 dark:border-white-600 dark:placeholder-white-400  dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Password"
+                            <input type="password" name="password" id="password" className="bg-white-50 border border-white-300 text-white-900 sm:text-sm  focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-white-700 dark:border-white-600 dark:placeholder-white-400  dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Password"
                                 value={signupData.password}
                                 onChange={(e) => {
                                     setSignupData({ ...signupData, password: e.target.value });
@@ -112,7 +114,7 @@ const SignupPage = () => {
                             {passwordValid && <p className="text-red-500 text-xs">{passwordValid}</p>}
                         </div>
                         <div>
-                            <input type="text" name="confirmPassword" id="confirmPassword" className="bg-white-50 border border-white-300 text-white-900 sm:text-sm  focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-white-700 dark:border-white-600 dark:placeholder-white-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Confirm password"
+                            <input type="password" name="confirmPassword" id="confirmPassword" className="bg-white-50 border border-white-300 text-white-900 sm:text-sm  focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-white-700 dark:border-white-600 dark:placeholder-white-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Confirm password"
                                 value={signupData.confirmPassword}
                                 onChange={(e) => {
                                     setSignupData({ ...signupData, confirmPassword: e.target.value });
