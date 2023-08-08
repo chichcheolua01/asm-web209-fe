@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useCreateCategoryMutation } from "../../../user/category.services";
 import { ICategory } from "../../../../interfaces/category.interface";
-import { toast } from "react-toastify";
+
 
 const initialState: Omit<ICategory, "_id"> = {
   name: "",
