@@ -61,7 +61,7 @@ const CreateProduct = (props: Props) => {
       } else {
         toast.error("Add new failed product");
       }
-      // setformValue(initialState);
+      setformValue(initialState);
     } catch (error) {
       console.log(error);
     }
