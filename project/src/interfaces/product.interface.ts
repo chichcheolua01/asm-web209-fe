@@ -7,6 +7,6 @@ export interface IProduct {
   images: string | string[] | File[];
   price: number;
   description: string;
-  categoryId: ICategory | string;
+  categoryId?: ICategory | string;
   quantity?: number;
 }
